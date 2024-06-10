@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <div>GitHub Check</div>
+      <div>GitHub Check Update</div>
     </>
   );
 }
