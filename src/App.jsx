@@ -5,17 +5,12 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
-    children: [
-      {
-        path: "/signin",
-        element: <SigninPage />,
-      },
-      {
-        path: "/signup",
-        element: <SignupPage />,
-      },
-    ],
+    path: "/signin",
+    element: <SigninPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
   },
 ]);
 
