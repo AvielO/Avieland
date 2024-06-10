@@ -44,8 +44,8 @@ const SigninPage = () => {
         </form>
       </div>
 
-      <div className="bg-sky-50 flex flex-col">
-        <h1 className="text-sky-600 mx-4 mt-12 text-5xl lg:mx-8 lg:text-8xl">
+      <div className="bg-sky-50 flex flex-col justify-center items-center">
+        <h1 className="text-sky-600 mx-4 mt-12 text-5xl lg:mx-8 lg:text-7xl">
           ברוכים הבאים לאביאלנד
         </h1>
         <p className="text-md mx-4 mt-8 lg:mx-8 lg:text-2xl">
@@ -58,7 +58,11 @@ const SigninPage = () => {
         <button className="bg-sky-600 text-sky-50 mx-4 mt-6 h-10 w-32 rounded lg:mx-8 lg:h-12 lg:w-40">
           הרשמה
         </button>
-        {/* Some Image */}
+        <img
+          src="/swords.png"
+          alt="User Image"
+          className="h-96 w-96 md:h-96 md:w-96 lg:h-[30rem] lg:w-[30rem]"
+        />
       </div>
     </div>
   );
