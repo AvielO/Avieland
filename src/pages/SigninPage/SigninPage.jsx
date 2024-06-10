@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./SigninPage.module.css";
 
 const SigninPage = () => {
   const navigate = useNavigate();
+
+  const handleSigninClick = (e) => {
+    e.preventDefault();
+    //Will send to the server a request with credentials
+    //check if there is a user exists
+    // if yes, nevigate and saves to redux
+    // if not, will send to the user an error, there is no user/password is not correct - I'll decide later
+  };
 
   const handleSignupClick = (e) => {
     e.preventDefault();
@@ -47,7 +54,10 @@ const SigninPage = () => {
           </div>
 
           <div>
-            <button className="bg-sky-600 text-sky-50 mt-8 rounded px-6 py-4 font-semibold">
+            <button
+              onClick={(e) => handleSigninClick(e)}
+              className="bg-sky-600 text-sky-50 mt-8 rounded px-6 py-4 font-semibold"
+            >
               התחברות
             </button>
           </div>
