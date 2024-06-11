@@ -33,7 +33,7 @@ const SignupPage = () => {
             התחברות
           </button>
           <img
-            src="/heros.png"
+            src="/hero.png"
             alt="User Image"
             className="h-96 w-96 md:h-96 md:w-96 lg:h-[40rem] lg:w-[36rem]"
           />
