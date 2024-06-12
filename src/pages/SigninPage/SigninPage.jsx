@@ -21,14 +21,10 @@ const SigninPage = () => {
         const errorData = await res.json();
         throw new Error(errorData.message);
       }
+      //Navigate and save to redux username
     } catch (err) {
       setError(err.message);
     }
-
-    //Will send to the server a request with credentials
-    //check if there is a user exists
-    // if yes, nevigate and saves to redux
-    // if not, will send to the user an error, there is no user/password is not correct - I'll decide later
   };
 
   const handleSignupClick = (e) => {
