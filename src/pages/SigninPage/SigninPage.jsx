@@ -21,7 +21,7 @@ const SigninPage = () => {
         const errorData = await res.json();
         throw new Error(errorData.message);
       }
-      //Navigate and save to redux username
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
