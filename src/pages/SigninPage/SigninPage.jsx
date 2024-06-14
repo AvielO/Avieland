@@ -1,14 +1,30 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SigninPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSigninClick = (e) => {
+  const handleSigninClick = async (e) => {
     e.preventDefault();
-    //Will send to the server a request with credentials
-    //check if there is a user exists
-    // if yes, nevigate and saves to redux
-    // if not, will send to the user an error, there is no user/password is not correct - I'll decide later
+    setError("");
+    if (!username || !password) return;
+
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/user?username=${username}&password=${password}`,
+      );
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message);
+      }
+      //Navigate and save to redux username
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleSignupClick = (e) => {
@@ -21,8 +37,8 @@ const SigninPage = () => {
     //items-center - Horizontally - אופקי
 
     <div className="grid h-screen grid-cols-2">
-      <div className="bg-sky-200 flex flex-col items-center justify-center gap-6 bg-cover bg-center">
-        <p className="text-sky-600 mb-4 text-7xl font-semibold underline md:text-8xl lg:mb-10 lg:text-[168px]">
+      <div className="flex flex-col items-center justify-center gap-6 bg-sky-200 bg-cover bg-center">
+        <p className="mb-4 text-7xl font-semibold text-sky-600 underline md:text-8xl lg:mb-10 lg:text-[168px]">
           כניסה
         </p>
 
@@ -38,7 +54,9 @@ const SigninPage = () => {
             <input
               type="text"
               name="name"
+              value={username}
               className="rounded border p-2 lg:h-12 lg:w-[42rem]"
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -48,15 +66,19 @@ const SigninPage = () => {
             <input
               type="password"
               name="password"
+              value={password}
               className="rounded border p-2 lg:h-12 lg:w-[42rem]"
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-
+          <span className="text-2xl font-semibold text-red-500">
+            {error ? error : ""}
+          </span>
           <div>
             <button
               onClick={(e) => handleSigninClick(e)}
-              className="bg-sky-600 text-sky-50 mt-8 rounded px-6 py-4 font-semibold"
+              className="rounded bg-sky-600 px-6 py-4 font-semibold text-sky-50"
             >
               התחברות
             </button>
@@ -64,8 +86,8 @@ const SigninPage = () => {
         </form>
       </div>
 
-      <div className="bg-sky-50 flex flex-col items-center justify-center">
-        <h1 className="text-sky-600 mx-4 mt-12 text-5xl lg:mx-8 lg:text-8xl">
+      <div className="flex flex-col items-center justify-center bg-sky-50">
+        <h1 className="mx-4 mt-12 text-5xl text-sky-600 lg:mx-8 lg:text-8xl">
           ברוכים הבאים לאביאלנד
         </h1>
         <p className="text-md mx-4 mt-8 lg:mx-8 lg:text-3xl">
@@ -77,7 +99,7 @@ const SigninPage = () => {
         </p>
         <button
           onClick={(e) => handleSignupClick(e)}
-          className="bg-sky-600 text-sky-50 mx-4 mt-6 h-10 w-32 rounded font-semibold lg:mx-8 lg:h-12 lg:w-40"
+          className="mx-4 mt-6 h-10 w-32 rounded bg-sky-600 font-semibold text-sky-50 lg:mx-8 lg:h-12 lg:w-40"
         >
           הרשמה
         </button>
