@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { userLogin } from "../../slices/userSlice";
 
 const SignupPage = () => {
   const usernameRef = useRef();
@@ -14,6 +17,7 @@ const SignupPage = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -56,8 +60,8 @@ const SignupPage = () => {
         const errorData = await res.json();
         throw new Error(errorData.message);
       }
-      navigate('/home')
-      //Navigate and save to redux username
+      dispatch(userLogin(username));
+      navigate("/home");
     } else {
       setErrors(newErrors);
     }
