@@ -15,8 +15,9 @@ const SignupPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+
     const newErrors = {
       username: "",
       password: "",
@@ -33,17 +34,30 @@ const SignupPage = () => {
       newErrors.general = "אנא מלא את כל השדות הנדרשים";
     }
 
-    //Server side check if username already exists
-    if (usernameRef.current.value === "AvielO") {
-      newErrors.username = "שם המשתמש תפוס. אנא בחר שם משתמש אחר";
-    }
-
     if (passwordRef.current.value !== passwordAgainRef.current.value) {
       newErrors.password = "הסיסמאות לא תואמות אחת לשנייה";
     }
 
     if (!newErrors.username && !newErrors.password && !newErrors.general) {
       //Signup and navigate
+      const res = await fetch(`${process.env.SERVER_URL}/user`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          passwordAgain: passwordAgainRef.current.value,
+        }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message);
+      }
+      navigate('/home')
+      //Navigate and save to redux username
     } else {
       setErrors(newErrors);
     }
