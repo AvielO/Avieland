@@ -4,7 +4,7 @@ import { DiApple } from "react-icons/di";
 const Sidebar = () => {
   return (
     <nav className="h-full w-full flex-col">
-      <ul className="flex h-full flex-col">
+      <ul className="flex h-full flex-col gap-7">
         <div className="mt-6">
           <NavLink to="/home">
             <li>
@@ -12,33 +12,33 @@ const Sidebar = () => {
             </li>
           </NavLink>
         </div>
-        <div className="flex h-full flex-col">
-          <NavLink className="flex" to="/home">
-            <li className="mt-8 flex items-center p-4 text-2xl">
+        <div className="flex h-full flex-col items-center gap-12">
+          <li>
+            <NavLink className="flex items-center text-2xl" to="/home">
               <DiApple />
               <span className="text-sky-600">בית</span>
-            </li>
-          </NavLink>
+            </NavLink>
+          </li>
           <NavLink to="/hall-of-fame">
-            <li className="mt-8 flex items-center p-4 text-2xl">
+            <li className="flex items-center text-2xl">
               <DiApple />
               <span className="text-sky-600">טבלת המובילים</span>
             </li>
           </NavLink>
           <NavLink to="/workers-and-soliders">
-            <li className="mt-8 flex items-center p-4 text-2xl">
+            <li className="flex items-center text-2xl">
               <DiApple />
               <span className="text-sky-600">עובדים וחיילים</span>
             </li>
           </NavLink>
           <NavLink to="/store">
-            <li className="mt-8 flex items-center p-4 text-2xl">
+            <li className="flex items-center text-2xl">
               <DiApple />
               <span className="text-sky-600">חנות</span>
             </li>
           </NavLink>
           <NavLink to="/reports">
-            <li className="mt-8 flex items-center p-4 text-2xl">
+            <li className="flex items-center text-2xl">
               <DiApple />
               <span className="text-sky-600">דוחות</span>
             </li>
