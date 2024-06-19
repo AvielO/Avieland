@@ -19,7 +19,7 @@ const Sidebar = () => {
               <span className="text-sky-600">בית</span>
             </NavLink>
           </li>
-          <NavLink to="/hall-of-fame">
+          <NavLink to="/top-users">
             <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">טבלת המובילים</span>

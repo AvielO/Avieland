@@ -3,6 +3,7 @@ import AppLayout from "./components/AppLayout/AppLayout";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import HomePage from "./pages/HomePage/HomePage";
+import TopUsersPage from "./pages/TopUsersPage/TopUsersPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <HomePage />,
+      },
+      {
+        path: "/top-users",
+        element: <TopUsersPage />,
       },
     ],
   },
