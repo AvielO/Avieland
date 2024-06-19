@@ -60,7 +60,7 @@ const SignupPage = () => {
         const errorData = await res.json();
         throw new Error(errorData.message);
       }
-      dispatch(userLogin(username));
+      dispatch(userLogin(usernameRef.current.value));
       navigate("/home");
     } else {
       setErrors(newErrors);
