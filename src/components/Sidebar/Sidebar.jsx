@@ -12,33 +12,33 @@ const Sidebar = () => {
             </li>
           </NavLink>
         </div>
-        <div className="flex h-full flex-col items-center gap-12">
+        <div className="flex h-full flex-col items-center gap-14">
           <li>
-            <NavLink className="flex items-center text-2xl" to="/home">
+            <NavLink className="flex items-center text-4xl" to="/home">
               <DiApple />
               <span className="text-sky-600">בית</span>
             </NavLink>
           </li>
           <NavLink to="/hall-of-fame">
-            <li className="flex items-center text-2xl">
+            <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">טבלת המובילים</span>
             </li>
           </NavLink>
           <NavLink to="/workers-and-soliders">
-            <li className="flex items-center text-2xl">
+            <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">עובדים וחיילים</span>
             </li>
           </NavLink>
           <NavLink to="/store">
-            <li className="flex items-center text-2xl">
+            <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">חנות</span>
             </li>
           </NavLink>
           <NavLink to="/reports">
-            <li className="flex items-center text-2xl">
+            <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">דוחות</span>
             </li>
