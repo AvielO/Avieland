@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="m-8 flex items-center">
+    <header className="flex items-center">
       <div className="w-[32dvh]">
         <form onSubmit={(e) => handleUserSearch(e)}>
           <input
