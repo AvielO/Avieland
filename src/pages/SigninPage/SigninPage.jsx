@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../slices/userSlice";
 
 const SigninPage = () => {
   const [username, setUsername] = useState("");
@@ -7,6 +9,7 @@ const SigninPage = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSigninClick = async (e) => {
     e.preventDefault();
@@ -21,7 +24,8 @@ const SigninPage = () => {
         const errorData = await res.json();
         throw new Error(errorData.message);
       }
-      //Navigate and save to redux username
+      dispatch(userLogin(username));
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
