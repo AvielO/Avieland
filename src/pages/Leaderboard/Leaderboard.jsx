@@ -81,6 +81,7 @@ const Leaderboard = () => {
             <td>23</td>
             <td>אין</td>
           </tr>
+          <LeaderboardItem index="5" username="AvielO" type="attdefer" gold="1351" soliders="5" workers="5" />
         </tbody>
       </table>
     </>
