@@ -14,7 +14,7 @@ const LeaderboardItem = ({
   group,
 }) => {
   return (
-    <tr className="h-9 text-center">
+    <tr className={`h-9 text-center ${index % 2 === 0 ? "bg-sky-50" : ""}`}>
       <td>{index}</td>
       <td>{username}</td>
       <td className="flex items-center justify-center">

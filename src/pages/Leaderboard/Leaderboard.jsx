@@ -20,68 +20,46 @@ const Leaderboard = () => {
           </tr>
         </thead>
         <tbody className="bg-sky-100 text-2xl text-sky-700">
-          
-          <tr className="h-9 text-center">
-            <td>1</td>
-            <td>אביאל</td>
-            <td className="flex items-center justify-center">
-              <img
-                className="h-16 w-16"
-                src="/player-type-icons/attacker-icon.png"
-                alt="player-type"
-              />
-            </td>
-            <td>10005</td>
-            <td>50</td>
-            <td>50</td>
-            <td>אין</td>
-          </tr>
-          <tr className="h-9 bg-sky-50 text-center">
-            <td>2</td>
-            <td>נועה</td>
-            <td className="flex items-center justify-center">
-              <img
-                className="h-16 w-16"
-                src="/player-type-icons/attdefer-icon.png"
-                alt="player-type"
-              />
-            </td>
-            <td>9783</td>
-            <td>43</td>
-            <td>43</td>
-            <td>אין</td>
-          </tr>
-          <tr className="h-9 text-center">
-            <td>3</td>
-            <td>עילית</td>
-            <td className="flex items-center justify-center">
-              <img
-                className="h-16 w-16"
-                src="/player-type-icons/defender-icon.png"
-                alt="player-type"
-              />
-            </td>
-            <td>8346</td>
-            <td>40</td>
-            <td>40</td>
-            <td>אין</td>
-          </tr>
-          <tr className="h-9 bg-sky-50 text-center">
-            <td>4</td>
-            <td>שלומקה</td>
-            <td className="flex items-center justify-center">
-              <img
-                className="h-16 w-16"
-                src="/player-type-icons/attdefer-icon.png"
-                alt="player-type"
-              />
-            </td>
-            <td>3526</td>
-            <td>23</td>
-            <td>23</td>
-            <td>אין</td>
-          </tr>
-          <LeaderboardItem index="5" username="AvielO" type="attdefer" gold="1351" soliders="5" workers="5" />
+          <LeaderboardItem
+            index="1"
+            username="אביאל"
+            type="attacker"
+            gold="35265"
+            soliders="80"
+            workers="35"
+          />
+          <LeaderboardItem
+            index="2"
+            username="נועה"
+            type="attdefer"
+            gold="25626"
+            soliders="58"
+            workers="32"
+          />
+          <LeaderboardItem
+            index="3"
+            username="עילית"
+            type="defender"
+            gold="16363"
+            soliders="49"
+            workers="26"
+          />
+          <LeaderboardItem
+            index="4"
+            username="שלומקה"
+            type="attdefer"
+            gold="9466"
+            soliders="32"
+            workers="9"
+          />
+          <LeaderboardItem
+            index="5"
+            username="AvielO"
+            type="attdefer"
+            gold="1351"
+            soliders="5"
+            workers="5"
+          />
         </tbody>
       </table>
     </>
