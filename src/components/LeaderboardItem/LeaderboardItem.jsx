@@ -6,12 +6,12 @@ const typeToImgPath = {
 
 const LeaderboardItem = ({
   index = 0,
-  username = "שם משתמש",
-  type = "attacker",
-  gold = "0",
-  soliders = "5",
-  workers = "5",
-  group = "אין",
+  username,
+  type,
+  gold,
+  soliders,
+  workers,
+  group,
 }) => {
   return (
     <tr className={`text-center ${index % 2 === 0 ? "bg-sky-50" : ""}`}>

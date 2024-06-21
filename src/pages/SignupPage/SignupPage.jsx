@@ -54,6 +54,7 @@ const SignupPage = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
           passwordAgain: passwordAgainRef.current.value,
+          type: "defender", //Change it to options lately
         }),
       });
       if (!res.ok) {

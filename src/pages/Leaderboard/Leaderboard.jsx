@@ -38,7 +38,7 @@ const Leaderboard = () => {
             <LeaderboardItem
               index={index + 1}
               username={user.username}
-              type="attacker"
+              type={user.type}
               gold={user.gold}
               soliders={user.soliders}
               workers={user.workers}
