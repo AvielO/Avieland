@@ -44,7 +44,7 @@ const SignupPage = () => {
 
     if (!newErrors.username && !newErrors.password && !newErrors.general) {
       //Signup and navigate
-      const res = await fetch(`${process.env.SERVER_URL}/user`, {
+      const res = await fetch(`${process.env.SERVER_URL}/users`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
