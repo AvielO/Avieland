@@ -1,4 +1,4 @@
-const translations = {
+const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
   defender: "/player-type-icons/defender-icon.png",
   attdefer: "/player-type-icons/attdefer-icon.png",
@@ -14,11 +14,15 @@ const LeaderboardItem = ({
   group,
 }) => {
   return (
-    <tr className={`h-9 text-center ${index % 2 === 0 ? "bg-sky-50" : ""}`}>
+    <tr className={`text-center ${index % 2 === 0 ? "bg-sky-50" : ""}`}>
       <td>{index}</td>
       <td>{username}</td>
-      <td className="flex items-center justify-center">
-        <img className="h-16 w-16" src={translations[type]} alt="player-type" />
+      <td className="flex justify-center">
+        <img
+          className="h-16 w-16"
+          src={typeToImgPath[type]}
+          alt="player-type"
+        />
       </td>
       <td>{gold}</td>
       <td>{soliders}</td>
