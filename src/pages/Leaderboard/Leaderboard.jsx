@@ -2,8 +2,6 @@ import LeaderboardItem from "../../components/LeaderboardItem/LeaderboardItem";
 
 const Leaderboard = () => {
   //UseEffect for fetch data of all players
-  //Need to think which information I want to dispaly
-  //Design each column, Blue, White, Blue - Like that.
   //Optional - sort of the list.DF
   return (
     <>
