@@ -96,7 +96,7 @@ const Leaderboard = () => {
             >
               עובדים
             </th>
-            <th>אירגון</th>
+            <th className="cursor-default">אירגון</th>
           </tr>
         </thead>
         <tbody className="bg-sky-100 text-2xl text-sky-700">
