@@ -18,7 +18,7 @@ const SigninPage = () => {
 
     try {
       const res = await fetch(
-        `${process.env.SERVER_URL}/user?username=${username}&password=${password}`,
+        `${process.env.SERVER_URL}/auth?username=${username}&password=${password}`,
       );
       if (!res.ok) {
         const errorData = await res.json();

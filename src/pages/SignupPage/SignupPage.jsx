@@ -44,7 +44,7 @@ const SignupPage = () => {
 
     if (!newErrors.username && !newErrors.password && !newErrors.general) {
       //Signup and navigate
-      const res = await fetch(`${process.env.SERVER_URL}/user`, {
+      const res = await fetch(`${process.env.SERVER_URL}/users`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -54,6 +54,7 @@ const SignupPage = () => {
           email: emailRef.current.value,
           password: passwordRef.current.value,
           passwordAgain: passwordAgainRef.current.value,
+          type: "defender", //Change it to options lately
         }),
       });
       if (!res.ok) {
