@@ -8,7 +8,7 @@ const Sidebar = () => {
         <div className="mt-6">
           <NavLink to="/home">
             <li>
-              <img src="logo.png" alt="logo Game" />
+              <img src="/logo.png" alt="logo Game" />
             </li>
           </NavLink>
         </div>

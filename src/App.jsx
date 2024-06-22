@@ -4,7 +4,7 @@ import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import HomePage from "./pages/HomePage/HomePage";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
-import UserPage from "./pages/UserPage/UserPage";
+import UserPage, { loader as userLoader } from "./pages/UserPage/UserPage";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
       {
         path: "/user/:username",
         element: <UserPage />,
+        loader: userLoader,
       },
     ],
   },
