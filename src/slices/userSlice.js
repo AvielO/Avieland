@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  username: "",
+  username: "AvielO",
   //userType
   //Can be stats of user
 };

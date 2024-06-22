@@ -19,7 +19,7 @@ const Sidebar = () => {
               <span className="text-sky-600">בית</span>
             </NavLink>
           </li>
-          <NavLink to="/hall-of-fame">
+          <NavLink to="/leaderboard">
             <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">טבלת המובילים</span>
@@ -41,6 +41,12 @@ const Sidebar = () => {
             <li className="flex items-center text-4xl">
               <DiApple />
               <span className="text-sky-600">דוחות</span>
+            </li>
+          </NavLink>
+          <NavLink to="/bank">
+            <li className="flex items-center text-4xl">
+              <DiApple />
+              <span className="text-sky-600">בנק</span>
             </li>
           </NavLink>
         </div>
