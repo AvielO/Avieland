@@ -1,5 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { DiApple } from "react-icons/di";
+import { MdHome } from "react-icons/md";
+import { FaMedal } from "react-icons/fa6";
+import { BsPersonWorkspace } from "react-icons/bs";
+import { BiSolidStore } from "react-icons/bi";
+import { TbReportSearch } from "react-icons/tb";
+import { BsBank2 } from "react-icons/bs";
 
 const Sidebar = () => {
   return (
@@ -13,40 +18,40 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div className="flex h-full flex-col items-center gap-14">
-          <li>
-            <NavLink className="flex items-center text-4xl" to="/home">
-              <DiApple />
-              <span className="text-sky-600">בית</span>
-            </NavLink>
-          </li>
-          <NavLink to="/leaderboard">
+          <NavLink to="/home">
             <li className="flex items-center text-4xl">
-              <DiApple />
-              <span className="text-sky-600">טבלת המובילים</span>
+              <MdHome />
+              <span className="h-11 text-sky-600">בית</span>
+            </li>
+          </NavLink>
+          <NavLink to="/leaderboard">
+            <li className="flex items-center gap-1 text-4xl">
+              <FaMedal />
+              <span className="h-11 text-sky-600">טבלת המובילים</span>
             </li>
           </NavLink>
           <NavLink to="/workers-and-soliders">
-            <li className="flex items-center text-4xl">
-              <DiApple />
-              <span className="text-sky-600">עובדים וחיילים</span>
+            <li className="flex items-center gap-1 text-4xl">
+              <BsPersonWorkspace />
+              <span className="h-11 text-sky-600">עובדים וחיילים</span>
             </li>
           </NavLink>
           <NavLink to="/store">
-            <li className="flex items-center text-4xl">
-              <DiApple />
-              <span className="text-sky-600">חנות</span>
+            <li className="flex items-center gap-1 text-4xl">
+              <BiSolidStore />
+              <span className="h-11 text-sky-600">חנות</span>
             </li>
           </NavLink>
           <NavLink to="/reports">
-            <li className="flex items-center text-4xl">
-              <DiApple />
-              <span className="text-sky-600">דוחות</span>
+            <li className="flex items-center gap-1 text-4xl">
+              <TbReportSearch />
+              <span className="h-11 text-sky-600">דוחות</span>
             </li>
           </NavLink>
           <NavLink to="/bank">
-            <li className="flex items-center text-4xl">
-              <DiApple />
-              <span className="text-sky-600">בנק</span>
+            <li className="flex items-center gap-1 text-4xl">
+              <BsBank2 />
+              <span className="h-11 text-sky-600">בנק</span>
             </li>
           </NavLink>
         </div>

@@ -3,6 +3,7 @@ import { getUserInformation } from "../../services/backendAPI.js";
 
 const UserPage = () => {
   const userDetails = useLoaderData();
+  //Maybe add created day account
   /*
   userDetails:
     goldAmount, group, id, index, solidersAmounts, type, username, workersAmount
