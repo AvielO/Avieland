@@ -11,14 +11,9 @@ export const typeToImgPath = {
   attdefer: "/player-type-icons/attdefer-icon.png",
 };
 
+//Maybe add created day account
 const UserPage = () => {
   const userDetails = useLoaderData();
-  console.log(userDetails);
-  //Maybe add created day account
-  /*
-  userDetails:
-    goldAmount, group, id, index, solidersAmounts, type, username, workersAmount
-  */
 
   return (
     <div className="mx-12 grid grid-cols-2 gap-12">
