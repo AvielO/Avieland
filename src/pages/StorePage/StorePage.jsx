@@ -10,6 +10,7 @@ const StorePage = () => {
     <div className="flex gap-8">
       {storeItems.map((item) => (
         <Card
+          weaponID={item.id}
           attack={item.attack}
           defense={item.defense}
           weaponName={item.name}

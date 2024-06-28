@@ -1,4 +1,8 @@
+import { useRef } from "react";
+import { useSelector } from "react-redux";
+
 const Card = ({
+  weaponID,
   attack,
   defense,
   weaponName,
@@ -7,6 +11,25 @@ const Card = ({
   silverPrice,
   goldPrice,
 }) => {
+  const quantityRef = useRef();
+  const username = useSelector((state) => state.user.username);
+
+  const handleBuyWeapon = async (weaponID) => {
+    const res = await fetch(`${process.env.SERVER_URL}/store/${weaponID}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        quantity: quantityRef.current.value,
+      }),
+    });
+    if (!res.ok) alert("בעיה");
+    const data = await res.json();
+    console.log(data);
+  };
+
   return (
     <div className="flex h-[20rem] w-64 flex-col items-center justify-evenly rounded-3xl bg-sky-400 p-1">
       <div className="flex flex-col items-center">
@@ -49,10 +72,19 @@ const Card = ({
       <div className="flex flex-col items-center gap-2">
         <div className="flex gap-1">
           <label>כמות:</label>
-          <input className="w-14 rounded-lg text-center" type="text" />
+          <input
+            className="w-14 rounded-lg text-center"
+            type="text"
+            ref={quantityRef}
+          />
         </div>
 
-        <button className="w-24 rounded-lg bg-sky-100 p-2">קנה עכשיו</button>
+        <button
+          onClick={() => handleBuyWeapon(weaponID)}
+          className="w-24 rounded-lg bg-sky-100 p-2"
+        >
+          קנה עכשיו
+        </button>
       </div>
     </div>
   );
