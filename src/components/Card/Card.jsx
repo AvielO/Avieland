@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateResources } from "../../slices/resourcesSlice";
 
 const Card = ({
   weaponID,
@@ -14,6 +15,8 @@ const Card = ({
   const quantityRef = useRef();
   const username = useSelector((state) => state.user.username);
 
+  const dispatch = useDispatch();
+
   const handleBuyWeapon = async (weaponID) => {
     const res = await fetch(`${process.env.SERVER_URL}/store/${weaponID}`, {
       method: "POST",
@@ -27,7 +30,7 @@ const Card = ({
     });
     if (!res.ok) alert("בעיה");
     const data = await res.json();
-    console.log(data);
+    dispatch(updateResources(data));
   };
 
   return (
