@@ -11,6 +11,9 @@ const Header = () => {
   const handleUserSearch = (e) => {
     e.preventDefault();
     const usernameSearch = usernameSearchRef.current.value;
+    //for now just navigate
+    navigate(`/user/${usernameSearch}`);
+
     /* 
     1.Check if there is user with this name.
     2.If there is user with this name - Get his ID

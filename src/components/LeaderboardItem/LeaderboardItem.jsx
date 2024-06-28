@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
   defender: "/player-type-icons/defender-icon.png",
@@ -18,7 +20,9 @@ const LeaderboardItem = ({
   return (
     <tr className={`text-center ${columnIndex % 2 === 0 ? "bg-sky-50" : ""}`}>
       <td>{index + 1}</td>
-      <td>{username}</td>
+      <td>
+        <Link to={`/user/${username}`}>{username}</Link>
+      </td>
       <td className="flex justify-center">
         <img
           className="h-16 w-16"
