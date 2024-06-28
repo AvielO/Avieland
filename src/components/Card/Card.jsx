@@ -29,8 +29,8 @@ const Card = ({
       }),
     });
     if (!res.ok) alert("בעיה");
-    const data = await res.json();
-    dispatch(updateResources(data));
+    const resourcesState = await res.json();
+    dispatch(updateResources(resourcesState));
   };
 
   return (
