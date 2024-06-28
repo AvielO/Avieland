@@ -12,7 +12,7 @@ const UserResources = () => {
 
   useEffect(() => {
     const fetchResources = async () => {
-      const res = await fetch(`${process.env.SERVER_URL}/users/${username}`);
+      const res = await fetch(`${process.env.SERVER_URL}/users/${username}/resources`);
       if (!res.ok) {
         throw new Error("Could not fetch the resources");
       }
