@@ -1,6 +1,14 @@
-const Card = ({ attack, defense, weaponName, imgPath, price }) => {
+const Card = ({
+  attack,
+  defense,
+  weaponName,
+  imgPath,
+  copperPrice,
+  silverPrice,
+  goldPrice,
+}) => {
   return (
-    <div className="flex h-[20rem] w-64 flex-col items-center justify-evenly rounded-3xl bg-sky-400">
+    <div className="flex h-[20rem] w-64 flex-col items-center justify-evenly rounded-3xl bg-sky-400 p-1">
       <div className="flex flex-col items-center">
         <img className="h-24 w-24" src={"user-icon.png"} alt="weapon Png" />
         <span>{weaponName}</span>
@@ -18,7 +26,7 @@ const Card = ({ attack, defense, weaponName, imgPath, price }) => {
             src="/resources-icons/copper-icon.png"
             alt="copper resource"
           />
-          <span>{price.copper}</span>
+          <span>{copperPrice}</span>
         </div>
         <div className="flex items-center">
           <img
@@ -26,7 +34,7 @@ const Card = ({ attack, defense, weaponName, imgPath, price }) => {
             src="/resources-icons/silver-icon.png"
             alt="silver resource"
           />
-          <span>{price.silver}</span>
+          <span>{silverPrice}</span>
         </div>
         <div className="flex items-center">
           <img
@@ -34,7 +42,7 @@ const Card = ({ attack, defense, weaponName, imgPath, price }) => {
             src="/resources-icons/gold-icon.png"
             alt="gold resource"
           />
-          <span>{price.gold}</span>
+          <span>{goldPrice}</span>
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import HomePage from "./pages/HomePage/HomePage";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import UserPage, { loader as userLoader } from "./pages/UserPage/UserPage";
-import StorePage from "./pages/StorePage/StorePage";
+import StorePage, { loader as storeLoader } from "./pages/StorePage/StorePage";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/store",
         element: <StorePage />,
+        loader: storeLoader,
       },
     ],
   },
