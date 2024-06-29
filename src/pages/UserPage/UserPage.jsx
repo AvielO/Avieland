@@ -72,7 +72,10 @@ const UserPage = () => {
           </div>
         </div>
         <div className="flex w-full flex-col items-center gap-6">
-          <button className="h-12 w-3/4 rounded-full bg-sky-300">
+          <button
+            onClick={() => handleAttack()}
+            className="h-12 w-3/4 rounded-full bg-sky-300"
+          >
             שלח התקפה
           </button>
           <button className="h-12 w-3/4 rounded-full bg-sky-200">
