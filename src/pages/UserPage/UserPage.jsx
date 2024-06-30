@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { getUserInformation } from "../../services/backendAPI.js";
 
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
@@ -13,7 +13,17 @@ export const typeToImgPath = {
 
 //Maybe add created day account
 const UserPage = () => {
+  const navigate = useNavigate();
   const userDetails = useLoaderData();
+
+  const handleAttack = () => {
+    
+    //fetch post/patch of attack - username, destUsername
+    //return report id
+    //navigate to reports/id
+    //Future plan - Decrease Turns of something to avoid spamming
+    navigate('/nou')
+  };
 
   return (
     <div className="mx-12 grid grid-cols-2 gap-12">
