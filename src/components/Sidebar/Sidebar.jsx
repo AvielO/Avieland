@@ -56,7 +56,7 @@ const Sidebar = () => {
               <span className="h-11 text-sky-600">בנק</span>
             </li>
           </NavLink>
-          <NavLink to="/bank">
+          <NavLink to="/messages">
             <li className="flex items-center gap-1 text-4xl">
               <TiMessages />
               <span className="h-11 text-sky-600">הודעות</span>
