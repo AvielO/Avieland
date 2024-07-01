@@ -1,9 +1,13 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { getUserInformation } from "../../services/backendAPI.js";
 
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { MdOutlineGroups } from "react-icons/md";
 import { VscTypeHierarchy } from "react-icons/vsc";
+
+import { updateResources } from "../../slices/resourcesSlice";
 
 export const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -13,7 +17,29 @@ export const typeToImgPath = {
 
 //Maybe add created day account
 const UserPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const userDetails = useLoaderData();
+  const username = useSelector((state) => state.user.username);
+
+  const handleAttack = async () => {
+    //fetch post/patch of attack - username, destUsername
+    const res = await fetch(
+      `${process.env.SERVER_URL}/users/${username}/attack/${userDetails.username}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+      },
+    );
+    const { reportID, updatedResources } = await res.json();
+
+    dispatch(updateResources(updatedResources));
+    navigate(`/reports/${reportID}`);
+    //Future plan - Decrease Turns of something to avoid spamming
+  };
 
   return (
     <div className="mx-12 grid grid-cols-2 gap-12">
@@ -72,7 +98,10 @@ const UserPage = () => {
           </div>
         </div>
         <div className="flex w-full flex-col items-center gap-6">
-          <button className="h-12 w-3/4 rounded-full bg-sky-300">
+          <button
+            onClick={() => handleAttack()}
+            className="h-12 w-3/4 rounded-full bg-sky-300"
+          >
             שלח התקפה
           </button>
           <button className="h-12 w-3/4 rounded-full bg-sky-200">
