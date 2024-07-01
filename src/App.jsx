@@ -6,6 +6,9 @@ import HomePage from "./pages/HomePage/HomePage";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import UserPage, { loader as userLoader } from "./pages/UserPage/UserPage";
 import StorePage, { loader as storeLoader } from "./pages/StorePage/StorePage";
+import ReportPage, {
+  loader as reportLoader,
+} from "./pages/ReportPage/ReportPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,11 @@ const router = createBrowserRouter([
         path: "/store",
         element: <StorePage />,
         loader: storeLoader,
+      },
+      {
+        path: "/reports/:id",
+        element: <ReportPage />,
+        loader: reportLoader,
       },
     ],
   },

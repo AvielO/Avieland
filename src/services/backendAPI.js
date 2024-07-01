@@ -9,3 +9,9 @@ export const getStore = async () => {
   const data = await res.json();
   return data;
 };
+
+export const getReportInformation = async (reportID) => {
+  const res = await fetch(`${process.env.SERVER_URL}/reports/${reportID}`);
+  const data = await res.json();
+  return data;
+};
