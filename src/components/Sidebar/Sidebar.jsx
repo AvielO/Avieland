@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
+
 import { MdHome } from "react-icons/md";
 import { FaMedal } from "react-icons/fa6";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { BiSolidStore } from "react-icons/bi";
 import { TbReportSearch } from "react-icons/tb";
 import { BsBank2 } from "react-icons/bs";
+import { TiMessages } from "react-icons/ti";
 
 const Sidebar = () => {
   return (
@@ -52,6 +54,12 @@ const Sidebar = () => {
             <li className="flex items-center gap-1 text-4xl">
               <BsBank2 />
               <span className="h-11 text-sky-600">בנק</span>
+            </li>
+          </NavLink>
+          <NavLink to="/bank">
+            <li className="flex items-center gap-1 text-4xl">
+              <TiMessages />
+              <span className="h-11 text-sky-600">הודעות</span>
             </li>
           </NavLink>
         </div>
