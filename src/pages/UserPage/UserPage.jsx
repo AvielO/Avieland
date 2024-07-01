@@ -4,6 +4,7 @@ import { getUserInformation } from "../../services/backendAPI.js";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { MdOutlineGroups } from "react-icons/md";
 import { VscTypeHierarchy } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 
 export const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -15,14 +16,22 @@ export const typeToImgPath = {
 const UserPage = () => {
   const navigate = useNavigate();
   const userDetails = useLoaderData();
+  const username = useSelector((state) => state.user.username);
 
-  const handleAttack = () => {
-    
+  const handleAttack = async () => {
     //fetch post/patch of attack - username, destUsername
-    //return report id
-    //navigate to reports/id
+    const res = await fetch(
+      `${process.env.SERVER_URL}/users/${username}/attack/${userDetails.username}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+      },
+    );
+    const reportID = await res.json();
+    navigate(`/reports/${reportID}`);
     //Future plan - Decrease Turns of something to avoid spamming
-    navigate('/nou')
   };
 
   return (

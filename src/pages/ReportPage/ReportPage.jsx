@@ -1,4 +1,8 @@
+import { useLoaderData } from "react-router-dom";
+
 const ReportPage = () => {
+  //const reportInformation = useLoaderData();
+
   return (
     <div className="mx-40 flex flex-col items-center gap-2 rounded-[85px] bg-sky-100 py-4">
       <span className="text-6xl font-semibold">תוצאות התקפה</span>
@@ -93,8 +97,8 @@ const ReportPage = () => {
 };
 
 export async function loader({ params }) {
-  //const { reportID } = params;
-  //const reportDetails = await getReportDetails(reportID);
+  //const { id } = params;
+  //const reportDetails = await getReportInformation(id);
   return null;
 }
 
