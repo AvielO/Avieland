@@ -1,10 +1,13 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { getUserInformation } from "../../services/backendAPI.js";
 
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { MdOutlineGroups } from "react-icons/md";
 import { VscTypeHierarchy } from "react-icons/vsc";
-import { useSelector } from "react-redux";
+
+import { updateResources } from "../../slices/resourcesSlice";
 
 export const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -14,7 +17,9 @@ export const typeToImgPath = {
 
 //Maybe add created day account
 const UserPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const userDetails = useLoaderData();
   const username = useSelector((state) => state.user.username);
 
@@ -29,7 +34,9 @@ const UserPage = () => {
         },
       },
     );
-    const reportID = await res.json();
+    const { reportID, updatedResources } = await res.json();
+
+    dispatch(updateResources(updatedResources));
     navigate(`/reports/${reportID}`);
     //Future plan - Decrease Turns of something to avoid spamming
   };

@@ -3,7 +3,6 @@ import { getReportInformation } from "../../services/backendAPI";
 
 const ReportPage = () => {
   const reportInformation = useLoaderData();
-  console.log(reportInformation);
 
   return (
     <div className="mx-40 flex flex-col items-center gap-2 rounded-[85px] bg-sky-100 py-4">
