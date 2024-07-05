@@ -1,4 +1,36 @@
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateResources } from "../../slices/resourcesSlice";
+
 const HirePage = () => {
+  const solidersQuantityRef = useRef();
+
+  const goldWorkerQuantityRef = useRef();
+  const silverWorkerQuantityRef = useRef();
+  const copperWorkerQuantityRef = useRef();
+
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.user.username);
+
+  const hireWorkers = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch(`${process.env.SERVER_URL}/workers`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        copperWorkersQuantity: copperWorkerQuantityRef.current.value,
+        silverWorkersQuantity: silverWorkerQuantityRef.current.value,
+        goldWorkersQuantity: goldWorkerQuantityRef.current.value,
+      }),
+    });
+    const { updatedWorkersQuantity, updatedResources } = await res.json();
+    dispatch(updateResources(updatedResources));
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col items-center gap-6">
@@ -26,7 +58,10 @@ const HirePage = () => {
 
           <div className="flex items-center gap-1 text-xl">
             <label>כמות: </label>
-            <input className="h-6 w-12 rounded-full text-center" />
+            <input
+              ref={solidersQuantityRef}
+              className="h-6 w-12 rounded-full text-center"
+            />
           </div>
         </div>
         <div>
@@ -46,15 +81,15 @@ const HirePage = () => {
               alt="solider-background"
             />
 
-            <span className="text-2xl font-semibold">עובד זהב</span>
+            <span className="text-2xl font-semibold">עובד נחושת</span>
 
             <div className="flex flex-col items-center">
               <span className="text-2xl font-semibold">עלות</span>
               <div className="flex items-center">
                 <img
                   className="h-8 w-8"
-                  src="/resources-icons/gold-icon.png"
-                  alt="gold-resource-icon"
+                  src="/resources-icons/copper-icon.png"
+                  alt="copper-resource-icon"
                 />
                 <span className="text-2xl">100</span>
               </div>
@@ -62,7 +97,10 @@ const HirePage = () => {
 
             <div className="flex items-center gap-1 text-xl">
               <label>כמות: </label>
-              <input className="h-6 w-12 rounded-full text-center" />
+              <input
+                ref={copperWorkerQuantityRef}
+                className="h-6 w-12 rounded-full text-center"
+              />
             </div>
           </div>
 
@@ -89,7 +127,10 @@ const HirePage = () => {
 
             <div className="flex items-center gap-1 text-xl">
               <label>כמות: </label>
-              <input className="h-6 w-12 rounded-full text-center" />
+              <input
+                ref={silverWorkerQuantityRef}
+                className="h-6 w-12 rounded-full text-center"
+              />
             </div>
           </div>
 
@@ -100,15 +141,15 @@ const HirePage = () => {
               alt="solider-background"
             />
 
-            <span className="text-2xl font-semibold">עובד נחושת</span>
+            <span className="text-2xl font-semibold">עובד זהב</span>
 
             <div className="flex flex-col items-center">
               <span className="text-2xl font-semibold">עלות</span>
               <div className="flex items-center">
                 <img
                   className="h-8 w-8"
-                  src="/resources-icons/copper-icon.png"
-                  alt="copper-resource-icon"
+                  src="/resources-icons/gold-icon.png"
+                  alt="gold-resource-icon"
                 />
                 <span className="text-2xl">100</span>
               </div>
@@ -116,12 +157,18 @@ const HirePage = () => {
 
             <div className="flex items-center gap-1 text-xl">
               <label>כמות: </label>
-              <input className="h-6 w-12 rounded-full text-center" />
+              <input
+                ref={goldWorkerQuantityRef}
+                className="h-6 w-12 rounded-full text-center"
+              />
             </div>
           </div>
         </div>
         <div>
-          <button className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl">
+          <button
+            onClick={(e) => hireWorkers(e)}
+            className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"
+          >
             העסק עובדים
           </button>
         </div>
