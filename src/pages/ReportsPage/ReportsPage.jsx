@@ -36,7 +36,7 @@ const ReportsPage = () => {
       </thead>
       <tbody className="bg-sky-100 text-center text-2xl text-sky-700">
         {reports.map((report, index) => (
-          <ReportItem report={report} />
+          <ReportItem report={report} index={index} key={report.id} />
         ))}
       </tbody>
     </table>

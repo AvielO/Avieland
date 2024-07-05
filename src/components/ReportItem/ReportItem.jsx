@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-const ReportItem = ({ report }) => {
+const ReportItem = ({ report, index }) => {
   return (
-    <tr>
+    <tr className={`text-center ${index % 2 === 0 ? "bg-sky-50" : ""} h-16`}>
       <td>{index + 1}</td>
       <td>{report.time}</td>
       <td>{report.winner}</td>
