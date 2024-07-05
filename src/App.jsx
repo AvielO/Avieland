@@ -9,6 +9,7 @@ import StorePage, { loader as storeLoader } from "./pages/StorePage/StorePage";
 import ReportPage, {
   loader as reportLoader,
 } from "./pages/ReportPage/ReportPage";
+import HirePage from "./pages/HirePage/HirePage";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "/reports/:id",
         element: <ReportPage />,
         loader: reportLoader,
+      },
+      {
+        path: "/hire",
+        element: <HirePage />,
       },
     ],
   },
