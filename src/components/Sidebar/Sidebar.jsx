@@ -32,10 +32,10 @@ const Sidebar = () => {
               <span className="h-11 text-sky-600">טבלת המובילים</span>
             </li>
           </NavLink>
-          <NavLink to="/workers-and-soliders">
+          <NavLink to="/hire">
             <li className="flex items-center gap-1 text-4xl">
               <BsPersonWorkspace />
-              <span className="h-11 text-sky-600">עובדים וחיילים</span>
+              <span className="h-11 text-sky-600">העסקה</span>
             </li>
           </NavLink>
           <NavLink to="/store">

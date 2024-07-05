@@ -5,8 +5,8 @@ import UserResources from "../UserResources/UserResources";
 
 const AppLayout = () => {
   return (
-    <div className="flex h-full flex-row bg-sky-200">
-      <div className="w-[40dvh] bg-sky-50">
+    <div className="flex min-h-screen bg-sky-200">
+      <div className="w-[42dvh] bg-sky-50 py-6">
         <Sidebar />
       </div>
       <div className="m-10 w-full">
