@@ -31,6 +31,23 @@ const HirePage = () => {
     dispatch(updateResources(updatedResources));
   };
 
+  const hireSoliders = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch(`${process.env.SERVER_URL}/soliders`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        solidersQuantity: solidersQuantityRef.current.value,
+      }),
+    });
+    const { updatedSolidersQuantity, updatedResources } = await res.json();
+    dispatch(updateResources(updatedResources));
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col items-center gap-6">
@@ -65,7 +82,10 @@ const HirePage = () => {
           </div>
         </div>
         <div>
-          <button className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl">
+          <button
+            onClick={(e) => hireSoliders(e)}
+            className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"
+          >
             העסק חיילים
           </button>
         </div>
