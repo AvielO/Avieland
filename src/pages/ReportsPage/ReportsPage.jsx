@@ -24,10 +24,12 @@ const ReportsPage = () => {
 
   return (
     <table className="w-full">
-      <thead className="h-12 bg-sky-300 text-xl">
-        <tr className="cursor-pointer select-none text-sky-900">
+      <thead className="h-14 bg-sky-300 text-xl">
+        <tr className="cursor-default select-none text-sky-900">
           <th id="index">#</th>
-          <th id="date">תאריך</th>
+          <th className="w-96" id="date">
+            תאריך
+          </th>
           <th id="winner">מנצח</th>
           <th id="attacker">תוקף</th>
           <th id="defender">מגן</th>
