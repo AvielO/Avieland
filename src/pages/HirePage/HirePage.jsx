@@ -49,7 +49,7 @@ const HirePage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <section className="flex flex-col items-center gap-6">
         <h1 className="text-5xl font-semibold underline">העסק חיילים</h1>
         <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
