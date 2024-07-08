@@ -30,9 +30,10 @@ const ReportsPage = () => {
           <th className="w-96" id="date">
             תאריך
           </th>
-          <th id="winner">מנצח</th>
+
           <th id="attacker">תוקף</th>
           <th id="defender">מגן</th>
+          <th id="winner">מנצח</th>
           <th id="see-report">ראה דוח</th>
         </tr>
       </thead>
