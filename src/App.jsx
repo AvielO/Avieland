@@ -10,6 +10,7 @@ import ReportPage, {
   loader as reportLoader,
 } from "./pages/ReportPage/ReportPage";
 import HirePage from "./pages/HirePage/HirePage";
+import ReportsPage from "./pages/ReportsPage/ReportsPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: "/store",
         element: <StorePage />,
         loader: storeLoader,
+      },
+      {
+        path: "/reports",
+        element: <ReportsPage />,
       },
       {
         path: "/reports/:id",
