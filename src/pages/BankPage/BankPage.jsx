@@ -84,7 +84,7 @@ const BankPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-28">
+    <div className="flex flex-col items-center gap-24">
       <section className="flex w-2/3 flex-col items-center gap-6 rounded-full bg-sky-300 py-4">
         <div className="-mt-14 rounded-full bg-white p-4">
           <img
