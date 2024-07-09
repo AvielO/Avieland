@@ -10,6 +10,15 @@ const BankPage = () => {
     gold: 0,
   });
 
+  const copperDepRef = useRef();
+  const copperWithRef = useRef();
+
+  const silverDepRef = useRef();
+  const silverWithRef = useRef();
+
+  const goldDepRef = useRef();
+  const goldWithRef = useRef();
+
   useEffect(() => {
     const getBankResources = async () => {
       const res = await fetch(
@@ -24,6 +33,14 @@ const BankPage = () => {
 
     getBankResources();
   });
+
+  const handleDeposit = async (e, resourceName) => {
+    e.preventDefault();
+  };
+
+  const handleWithdraw = async (e, resourceName) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="flex flex-col items-center gap-28">
@@ -41,14 +58,22 @@ const BankPage = () => {
             <span className="text-2xl font-semibold">
               יתרה להפקדה: {copper}
             </span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={copperDepRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               הפקד נחושת
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.copper}</span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <span className="text-2xl font-semibold">
+              יתרה למשיכה: {bankResources.copper}
+            </span>
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={copperWithRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך נחושת
             </button>
@@ -70,14 +95,22 @@ const BankPage = () => {
             <span className="text-2xl font-semibold">
               יתרה להפקדה: {silver}
             </span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={silverDepRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               הפקד כסף
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.silver}</span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <span className="text-2xl font-semibold">
+              יתרה למשיכה: {bankResources.silver}
+            </span>
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={silverWithRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך כסף
             </button>
@@ -97,14 +130,22 @@ const BankPage = () => {
         <div className="flex w-full justify-around">
           <div className="flex flex-col items-center gap-2">
             <span className="text-2xl font-semibold">יתרה להפקדה: {gold}</span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={goldDepRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               הפקד זהב
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.gold}</span>
-            <input className="w-2/3 rounded-full bg-white p-2 text-center" />
+            <span className="text-2xl font-semibold">
+              יתרה למשיכה: {bankResources.gold}
+            </span>
+            <input
+              className="w-2/3 rounded-full bg-white p-2 text-center"
+              ref={goldWithRef}
+            />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך זהב
             </button>
