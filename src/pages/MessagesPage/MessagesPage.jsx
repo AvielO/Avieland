@@ -32,12 +32,17 @@ const MessagesPage = () => {
   useEffect(() => {
     socket.emit("join chat", chatUsername);
     socket.on("message accepted", (messageObj) => {
-      console.log(messageObj.user, messageObj.message, messageObj.date);
+      const senderIsMe = messageObj.user === username ? true : false;
+      setMessages((messages) => [
+        ...messages,
+        { text: messageObj.message, right: senderIsMe },
+      ]);
     });
 
     return () => {
       socket.emit("leave chat", chatUsername);
       socket.off("message accepted");
+      setMessages([]);
     };
   }, [chatUsername]);
 
@@ -90,9 +95,10 @@ const MessagesPage = () => {
       </div>
       <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
         <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
-          {messages.map((message) => (
+          {messages.map((message, index) => (
             <div
-              className={`w-fit rounded-full bg-sky-200 p-3 ${message.right ? "self-end bg-gray-200" : "bg-sky-200"}`}
+              className={`w-fit rounded-full bg-sky-200 p-3 ${message.right ? "bg-sky-200" : "self-end bg-gray-200"}`}
+              key={index}
             >
               {message.text}
             </div>
