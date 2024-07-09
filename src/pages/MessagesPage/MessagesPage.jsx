@@ -2,23 +2,32 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
 import { LuSendHorizonal } from "react-icons/lu";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
 const MessagesPage = () => {
   const newMessageRef = useRef();
+
+  const { chatUsername } = useParams();
+  const username = useSelector((state) => state.user.username);
+
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket.on("new message", (msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
-    });
+    //get old message
+    //socket.on for each new message
+    //join room
+    console.log(chatUsername)
+    // socket.on("get messages", (msg) => {
+    //   setMessages((prevMessages) => [...prevMessages, msg]);
+    // });
 
-    return () => {
-      socket.off("new message");
-    };
-  }, []);
+    // return () => {
+    //   socket.off("new message");
+    // };
+  }, [chatUsername]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -135,10 +144,4 @@ const MessagesPage = () => {
 //   </div>
 // );
 
-export async function loader({ params }) {
-  const { chatUsername } = params;
-  console.log(chatUsername);
-  // const reportDetails = await getReportInformation(id);
-  return null;
-}
 export default MessagesPage;

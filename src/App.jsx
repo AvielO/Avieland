@@ -12,9 +12,7 @@ import ReportPage, {
 import HirePage from "./pages/HirePage/HirePage";
 import ReportsPage from "./pages/ReportsPage/ReportsPage";
 import BankPage from "./pages/BankPage/BankPage";
-import MessagesPage, {
-  loader as chatLoader,
-} from "./pages/MessagesPage/MessagesPage";
+import MessagesPage from "./pages/MessagesPage/MessagesPage";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +68,6 @@ const router = createBrowserRouter([
       {
         path: "/messages/:chatUsername",
         element: <MessagesPage />,
-        loader: chatLoader,
       },
     ],
   },
