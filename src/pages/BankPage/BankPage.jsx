@@ -1,7 +1,29 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const BankPage = () => {
+  const username = useSelector((state) => state.user.username);
   const { copper, silver, gold } = useSelector((state) => state.resources);
+  const [bankResources, setBankResources] = useState({
+    copper: 0,
+    silver: 0,
+    gold: 0,
+  });
+
+  useEffect(() => {
+    const getBankResources = async () => {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/users/${username}/bank`,
+      );
+      if (!res.ok) {
+        throw new Error("User not found");
+      }
+      const { bank: bankResources } = await res.json();
+      setBankResources(bankResources);
+    };
+
+    getBankResources();
+  });
 
   return (
     <div className="flex flex-col items-center gap-28">
@@ -25,7 +47,7 @@ const BankPage = () => {
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה למשיכה: 15000</span>
+            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.copper}</span>
             <input className="w-2/3 rounded-full bg-white p-2 text-center" />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך נחושת
@@ -54,7 +76,7 @@ const BankPage = () => {
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה להפקדה: 15000</span>
+            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.silver}</span>
             <input className="w-2/3 rounded-full bg-white p-2 text-center" />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך כסף
@@ -81,7 +103,7 @@ const BankPage = () => {
             </button>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <span className="text-2xl font-semibold">יתרה להפקדה: 15000</span>
+            <span className="text-2xl font-semibold">יתרה למשיכה: {bankResources.gold}</span>
             <input className="w-2/3 rounded-full bg-white p-2 text-center" />
             <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
               משוך זהב
