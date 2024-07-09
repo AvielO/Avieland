@@ -11,6 +11,7 @@ import ReportPage, {
 } from "./pages/ReportPage/ReportPage";
 import HirePage from "./pages/HirePage/HirePage";
 import ReportsPage from "./pages/ReportsPage/ReportsPage";
+import BankPage from "./pages/BankPage/BankPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/hire",
         element: <HirePage />,
+      },
+      {
+        path: "/bank",
+        element: <BankPage />,
       },
     ],
   },
