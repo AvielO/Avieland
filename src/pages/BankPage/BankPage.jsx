@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateResources } from "../../slices/resourcesSlice";
 
 const BankPage = () => {
   const username = useSelector((state) => state.user.username);
@@ -9,6 +10,8 @@ const BankPage = () => {
     silver: 0,
     gold: 0,
   });
+
+  const dispatch = useDispatch();
 
   const copperDepRef = useRef();
   const copperWithRef = useRef();
@@ -32,14 +35,52 @@ const BankPage = () => {
     };
 
     getBankResources();
-  });
+  }, []);
 
   const handleDeposit = async (e, resourceName) => {
     e.preventDefault();
+
+    const res = await fetch(
+      `${process.env.SERVER_URL}/bank/${username}/deposit`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          resourceName,
+          copperToDeposit: copperDepRef.current.value,
+          silverToDeposit: silverDepRef.current.value,
+          goldToDeposit: goldDepRef.current.value,
+        }),
+      },
+    );
+    const { updatedResources, updatedBankResources } = await res.json();
+    dispatch(updateResources(updatedResources));
+    setBankResources(updatedBankResources);
   };
 
   const handleWithdraw = async (e, resourceName) => {
     e.preventDefault();
+
+    const res = await fetch(
+      `${process.env.SERVER_URL}/bank/${username}/withdraw`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          resourceName,
+          copperToWithdraw: copperWithRef.current.value,
+          silverToWithdraw: silverWithRef.current.value,
+          goldToWithdraw: goldWithRef.current.value,
+        }),
+      },
+    );
+    const { updatedResources, updatedBankResources } = await res.json();
+    dispatch(updateResources(updatedResources));
+    setBankResources(updatedBankResources);
   };
 
   return (
@@ -62,7 +103,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={copperDepRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleDeposit(e, "copper")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               הפקד נחושת
             </button>
           </div>
@@ -74,7 +118,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={copperWithRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleWithdraw(e, "copper")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               משוך נחושת
             </button>
           </div>
@@ -99,7 +146,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={silverDepRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleDeposit(e, "silver")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               הפקד כסף
             </button>
           </div>
@@ -111,7 +161,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={silverWithRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleWithdraw(e, "silver")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               משוך כסף
             </button>
           </div>
@@ -134,7 +187,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={goldDepRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleDeposit(e, "gold")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               הפקד זהב
             </button>
           </div>
@@ -146,7 +202,10 @@ const BankPage = () => {
               className="w-2/3 rounded-full bg-white p-2 text-center"
               ref={goldWithRef}
             />
-            <button className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white">
+            <button
+              onClick={(e) => handleWithdraw(e, "gold")}
+              className="w-full rounded-full bg-sky-500 px-4 py-2 text-xl font-semibold text-white"
+            >
               משוך זהב
             </button>
           </div>
