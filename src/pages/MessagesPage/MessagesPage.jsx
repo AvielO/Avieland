@@ -13,29 +13,42 @@ const MessagesPage = () => {
   const { chatUsername } = useParams();
   const username = useSelector((state) => state.user.username);
 
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { text: "לא אחי לא עשיתי כלום", right: true },
+    { text: "מה נשמע", right: true },
+    { text: "אני סבבה לגמרי אחי", right: false },
+    { text: "מעולה אח שלי שמח לשמוע", right: true },
+    { text: "יאללה ביי אח", right: false },
+  ]);
 
   useEffect(() => {
-    //get old message
-    //socket.on for each new message
-    //join room
-    console.log(chatUsername)
-    // socket.on("get messages", (msg) => {
-    //   setMessages((prevMessages) => [...prevMessages, msg]);
-    // });
+    socket.emit("join chat", username);
 
-    // return () => {
-    //   socket.off("new message");
-    // };
+    return () => {
+      socket.off("join chat");
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.emit("join chat", chatUsername);
+    socket.on("message accepted", (messageObj) => {
+      console.log(messageObj.user, messageObj.message, messageObj.date);
+    });
+
+    return () => {
+      socket.emit("leave chat", chatUsername);
+      socket.off("message accepted");
+    };
   }, [chatUsername]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
 
     if (newMessageRef.current.value) {
-      socket.emit("send message", {
-        room,
+      socket.emit("message sent", {
+        room: chatUsername,
         message: newMessageRef.current.value,
+        user: username,
       });
       newMessageRef.current.value = "";
     }
@@ -44,7 +57,7 @@ const MessagesPage = () => {
   return (
     <div className="m-4 flex">
       <div className="flex w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
-        <Link to={`/messages/Noa`} key={"Noa"}>
+        <Link to={`/messages/AvielO`} key={"Aviel"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>אביאל הגבר</span>
@@ -53,7 +66,7 @@ const MessagesPage = () => {
         <Link to={`/messages/Bar`} key={"Bar"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
-            <span>לולי הגבר</span>
+            <span>בר הגבר</span>
           </div>
         </Link>
         <Link to={`/messages/loli`} key={"loli"}>
@@ -77,21 +90,13 @@ const MessagesPage = () => {
       </div>
       <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
         <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
-          <div className="w-fit rounded-full bg-sky-200 p-3 text-left">
-            <span>לא אחי לא עשיתי כלום</span>
-          </div>
-          <div className="w-fit rounded-full bg-sky-200 p-3 text-left">
-            <span>מה נשמע</span>
-          </div>
-          <div className="w-fit self-end rounded-full bg-gray-200 p-3">
-            <span>אני סבבה לגמרי אחי</span>
-          </div>
-          <div className="w-fit rounded-full bg-sky-200 p-3 text-left">
-            <span>מעולה אח שלי שמח לשמוע</span>
-          </div>
-          <div className="w-fit self-end rounded-full bg-gray-200 p-3">
-            <span>יאללה ביי אח</span>
-          </div>
+          {messages.map((message) => (
+            <div
+              className={`w-fit rounded-full bg-sky-200 p-3 ${message.right ? "self-end bg-gray-200" : "bg-sky-200"}`}
+            >
+              {message.text}
+            </div>
+          ))}
         </div>
         <div className="flex items-center justify-center gap-3">
           <button
@@ -110,38 +115,5 @@ const MessagesPage = () => {
     </div>
   );
 };
-
-// return (
-//   <div>
-//     {!joinedRoom ? (
-//       <form onSubmit={joinRoom}>
-//         <input
-//           value={room}
-//           onChange={(e) => setRoom(e.target.value)}
-//           placeholder="Room"
-//           autoComplete="off"
-//         />
-//         <button type="submit">Join Room</button>
-//       </form>
-//     ) : (
-//       <div>
-//         <button onClick={leaveRoom}>Leave Room</button>
-//         <ul>
-//           {messages.map((msg, index) => (
-//             <li key={index}>{msg}</li>
-//           ))}
-//         </ul>
-//         <form onSubmit={sendMessage}>
-//           <input
-//             value={message}
-//             onChange={(e) => setMessage(e.target.value)}
-//             autoComplete="off"
-//           />
-//           <button type="submit">Send</button>
-//         </form>
-//       </div>
-//     )}
-//   </div>
-// );
 
 export default MessagesPage;
