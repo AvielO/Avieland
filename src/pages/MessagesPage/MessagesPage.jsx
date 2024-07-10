@@ -13,13 +13,7 @@ const MessagesPage = () => {
   const { chatUsername } = useParams();
   const username = useSelector((state) => state.user.username);
 
-  const [messages, setMessages] = useState([
-    { text: "לא אחי לא עשיתי כלום", right: true },
-    { text: "מה נשמע", right: true },
-    { text: "אני סבבה לגמרי אחי", right: false },
-    { text: "מעולה אח שלי שמח לשמוע", right: true },
-    { text: "יאללה ביי אח", right: false },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     socket.emit("join chat", username);
@@ -32,11 +26,13 @@ const MessagesPage = () => {
   useEffect(() => {
     socket.emit("join chat", chatUsername);
     socket.on("message accepted", (messageObj) => {
-      const senderIsMe = messageObj.user === username ? true : false;
-      setMessages((messages) => [
-        ...messages,
-        { text: messageObj.message, right: senderIsMe },
-      ]);
+      if (messageObj.user === chatUsername || messageObj.user === username) {
+        const senderIsMe = messageObj.user === username ? true : false;
+        setMessages((messages) => [
+          ...messages,
+          { text: messageObj.message, right: senderIsMe },
+        ]);
+      }
     });
 
     return () => {

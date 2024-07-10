@@ -41,6 +41,11 @@ const UserPage = () => {
     //Future plan - Decrease Turns of something to avoid spamming
   };
 
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    navigate(`/messages/${userDetails.username}`);
+  };
+
   return (
     <div className="mx-12 grid grid-cols-2 gap-12">
       <div className="flex flex-col gap-6 rounded-xl bg-sky-300 py-4">
@@ -104,7 +109,10 @@ const UserPage = () => {
           >
             שלח התקפה
           </button>
-          <button className="h-12 w-3/4 rounded-full bg-sky-200">
+          <button
+            onClick={(e) => handleSendMessage(e)}
+            className="h-12 w-3/4 rounded-full bg-sky-200"
+          >
             שלח הודעה
           </button>
         </div>
