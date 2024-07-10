@@ -14,6 +14,7 @@ const MessagesPage = () => {
   const username = useSelector((state) => state.user.username);
 
   const [messages, setMessages] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     socket.emit("join chat", username);
@@ -32,8 +33,17 @@ const MessagesPage = () => {
           ...messages,
           { text: messageObj.message, right: senderIsMe },
         ]);
+      } else {
+        console.log("Fuck you")
+        setNotifications((notifications) => [
+          ...notifications,
+          messageObj.user,
+        ]);
       }
     });
+    setNotifications((notifications) =>
+      notifications.filter((notification) => notification !== chatUsername),
+    );
 
     return () => {
       socket.emit("leave chat", chatUsername);
@@ -62,30 +72,55 @@ const MessagesPage = () => {
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>אביאל הגבר</span>
+            {notifications.includes("AvielO") ? (
+              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
         <Link to={`/messages/Bar`} key={"Bar"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>בר הגבר</span>
+            {notifications.includes("Bar") ? (
+              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
         <Link to={`/messages/loli`} key={"loli"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>נועה הגבר</span>
+            {notifications.includes("loli") ? (
+              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
         <Link to={`/messages/Shaharon`} key={"Shaharon"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>שחר הגבר</span>
+            {notifications.includes("Shaharon") ? (
+              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
         <Link to={`/messages/Ronaldo`} key={"Ronaldo"}>
           <div className="flex items-center gap-2">
             <img className="h-10 w-10" src="user-icon.png" />
             <span>קרין הגבר</span>
+            {notifications.includes("Ronaldo") ? (
+              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+            ) : (
+              ""
+            )}
           </div>
         </Link>
       </div>
