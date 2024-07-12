@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import { LuSendHorizonal } from "react-icons/lu";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { formatDate, formatDateToHour } from "../../utils/helpers";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
@@ -40,11 +41,11 @@ const MessagesPage = () => {
     });
 
     socket.on("message accepted", (messageObj) => {
-      if (messageObj.user === chatUsername || messageObj.user === username) {
-        setMessages((messages) => [
-          ...messages,
-          { content: messageObj.message, sender: messageObj.user },
-        ]);
+      if (
+        messageObj.sender === chatUsername ||
+        messageObj.sender === username
+      ) {
+        setMessages((messages) => [...messages, messageObj]);
 
         setChatSenders((chatSenders) => {
           const updatedChatSenders = chatSenders.filter(
@@ -55,14 +56,14 @@ const MessagesPage = () => {
       } else {
         setNotifications((notifications) => [
           ...notifications,
-          messageObj.user,
+          messageObj.sender,
         ]);
-        setChatSenders((prevChatSenders) => [chatUsername, ...prevChatSenders]);
+        setChatSenders((prevChatSenders) => [
+          messageObj.sender,
+          ...prevChatSenders,
+        ]);
       }
     });
-    setNotifications((notifications) =>
-      notifications.filter((notification) => notification !== chatUsername),
-    );
 
     return () => {
       socket.emit("leave chat", chatUsername);
@@ -112,10 +113,13 @@ const MessagesPage = () => {
           <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
             {messages.map((message, index) => (
               <div
-                className={`w-fit rounded-full p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
+                className={`flex w-fit flex-col rounded-3xl p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
                 key={index}
               >
-                {message.content}
+                <span className="text-xl font-semibold">{message.content}</span>
+                <span className="text-md">
+                  {formatDateToHour(message.createdAt)}
+                </span>
               </div>
             ))}
           </div>

@@ -11,3 +11,13 @@ export function formatDate(dateStr) {
     second: "2-digit",
   }).format(new Date(date));
 }
+
+export function formatDateToHour(dateStr) {
+  const date = new Date(dateStr);
+  date.setHours(date.getHours() - 3); // 3 - Our timezone
+
+  return new Intl.DateTimeFormat("he", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(date));
+}
