@@ -14,31 +14,45 @@ const MessagesPage = () => {
   const username = useSelector((state) => state.user.username);
 
   const [messages, setMessages] = useState([]);
+  const [chatSenders, setChatSenders] = useState([]);
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    socket.emit("join chat", username);
+    const fetchChatsSenders = async () => {
+      const res = await fetch(`${process.env.SERVER_URL}/chats/${username}`);
+      const { uniqueSenders } = await res.json();
+      setChatSenders(uniqueSenders);
+    };
+    socket.emit("listen myself", { username });
+    fetchChatsSenders();
 
     return () => {
-      socket.off("join chat");
+      socket.off("listen myself");
     };
   }, []);
 
   useEffect(() => {
-    socket.emit("join chat", chatUsername);
+    socket.emit("join chat", { room: chatUsername, username });
+    socket.on("previous messages", ({ messages }) => {
+      setMessages(messages);
+    });
+
     socket.on("message accepted", (messageObj) => {
       if (messageObj.user === chatUsername || messageObj.user === username) {
-        const senderIsMe = messageObj.user === username ? true : false;
         setMessages((messages) => [
           ...messages,
-          { text: messageObj.message, right: senderIsMe },
+          { content: messageObj.message, sender: messageObj.user },
         ]);
+        const updatedChatSenders = chatSenders.filter(
+          (item) => item !== chatUsername,
+        );
+        setChatSenders(() => [chatUsername, ...updatedChatSenders]);
       } else {
-        console.log("Fuck you")
         setNotifications((notifications) => [
           ...notifications,
           messageObj.user,
         ]);
+        setChatSenders((chatSenders) => [chatUsername, ...chatSenders]);
       }
     });
     setNotifications((notifications) =>
@@ -68,70 +82,28 @@ const MessagesPage = () => {
   return (
     <div className="m-4 flex">
       <div className="flex w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
-        <Link to={`/messages/AvielO`} key={"Aviel"}>
-          <div className="flex items-center gap-2">
-            <img className="h-10 w-10" src="user-icon.png" />
-            <span>אביאל הגבר</span>
-            {notifications.includes("AvielO") ? (
-              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Link>
-        <Link to={`/messages/Bar`} key={"Bar"}>
-          <div className="flex items-center gap-2">
-            <img className="h-10 w-10" src="user-icon.png" />
-            <span>בר הגבר</span>
-            {notifications.includes("Bar") ? (
-              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Link>
-        <Link to={`/messages/loli`} key={"loli"}>
-          <div className="flex items-center gap-2">
-            <img className="h-10 w-10" src="user-icon.png" />
-            <span>נועה הגבר</span>
-            {notifications.includes("loli") ? (
-              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Link>
-        <Link to={`/messages/Shaharon`} key={"Shaharon"}>
-          <div className="flex items-center gap-2">
-            <img className="h-10 w-10" src="user-icon.png" />
-            <span>שחר הגבר</span>
-            {notifications.includes("Shaharon") ? (
-              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Link>
-        <Link to={`/messages/Ronaldo`} key={"Ronaldo"}>
-          <div className="flex items-center gap-2">
-            <img className="h-10 w-10" src="user-icon.png" />
-            <span>קרין הגבר</span>
-            {notifications.includes("Ronaldo") ? (
-              <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Link>
+        {chatSenders.map((chatSender) => (
+          <Link to={`/messages/${chatSender}`} key={`${chatSender}`}>
+            <div className="flex items-center gap-2">
+              <img className="h-10 w-10" src="user-icon.png" />
+              <span>{chatSender}</span>
+              {notifications.includes(chatSender) ? (
+                <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+              ) : (
+                ""
+              )}
+            </div>
+          </Link>
+        ))}
       </div>
       <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
         <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
           {messages.map((message, index) => (
             <div
-              className={`w-fit rounded-full bg-sky-200 p-3 ${message.right ? "bg-sky-200" : "self-end bg-gray-200"}`}
+              className={`w-fit rounded-full p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
               key={index}
             >
-              {message.text}
+              {message.content}
             </div>
           ))}
         </div>
