@@ -58,12 +58,17 @@ const MessagesPage = () => {
           ...notifications,
           messageObj.sender,
         ]);
-        setChatSenders((prevChatSenders) => [
-          messageObj.sender,
-          ...prevChatSenders,
-        ]);
+        setChatSenders((prevChatSenders) => {
+          const updatedChatSenders = prevChatSenders.filter(
+            (item) => item !== messageObj.sender,
+          );
+          return [messageObj.sender, ...updatedChatSenders];
+        });
       }
     });
+    setNotifications((notifications) =>
+      notifications.filter((notification) => notification !== chatUsername),
+    );
 
     return () => {
       socket.emit("leave chat", chatUsername);
@@ -113,11 +118,11 @@ const MessagesPage = () => {
           <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
             {messages.map((message, index) => (
               <div
-                className={`flex w-fit flex-col rounded-3xl p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
+                className={`flex w-fit flex-col rounded-full p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
                 key={index}
               >
-                <span className="text-xl font-semibold">{message.content}</span>
-                <span className="text-md">
+                <span className="text-xl">{message.content}</span>
+                <span className="text-xl">
                   {formatDateToHour(message.createdAt)}
                 </span>
               </div>
