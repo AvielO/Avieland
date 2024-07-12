@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
 import { LuSendHorizonal } from "react-icons/lu";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const socket = io(`${process.env.SERVER_URL}`);
@@ -23,16 +23,18 @@ const MessagesPage = () => {
       const { uniqueSenders } = await res.json();
       setChatSenders(uniqueSenders);
     };
-    socket.emit("listen myself", { username });
+
     fetchChatsSenders();
+    socket.emit("listen myself", { username });
 
     return () => {
       socket.off("listen myself");
     };
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     socket.emit("join chat", { room: chatUsername, username });
+
     socket.on("previous messages", ({ messages }) => {
       setMessages(messages);
     });
@@ -43,16 +45,19 @@ const MessagesPage = () => {
           ...messages,
           { content: messageObj.message, sender: messageObj.user },
         ]);
-        const updatedChatSenders = chatSenders.filter(
-          (item) => item !== chatUsername,
-        );
-        setChatSenders(() => [chatUsername, ...updatedChatSenders]);
+
+        setChatSenders((chatSenders) => {
+          const updatedChatSenders = chatSenders.filter(
+            (item) => item !== chatUsername,
+          );
+          return [chatUsername, ...updatedChatSenders];
+        });
       } else {
         setNotifications((notifications) => [
           ...notifications,
           messageObj.user,
         ]);
-        setChatSenders((chatSenders) => [chatUsername, ...chatSenders]);
+        setChatSenders((prevChatSenders) => [chatUsername, ...prevChatSenders]);
       }
     });
     setNotifications((notifications) =>
@@ -81,7 +86,7 @@ const MessagesPage = () => {
 
   return (
     <div className="m-4 flex">
-      <div className="flex w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
+      <div className="flex h-fit w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
         {chatSenders.map((chatSender) => (
           <Link to={`/messages/${chatSender}`} key={`${chatSender}`}>
             <div className="flex items-center gap-2">
@@ -96,31 +101,33 @@ const MessagesPage = () => {
           </Link>
         ))}
       </div>
-      <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
-        <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
-          {messages.map((message, index) => (
-            <div
-              className={`w-fit rounded-full p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
-              key={index}
+      {chatUsername && (
+        <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
+          <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
+            {messages.map((message, index) => (
+              <div
+                className={`w-fit rounded-full p-3 ${message.sender === username ? "bg-sky-200" : "self-end bg-gray-200"}`}
+                key={index}
+              >
+                {message.content}
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              onClick={(e) => handleSendMessage(e)}
+              className="flex items-center justify-center rounded-full bg-white p-2 text-4xl"
             >
-              {message.content}
-            </div>
-          ))}
+              <LuSendHorizonal />
+            </button>
+            <input
+              type="text"
+              ref={newMessageRef}
+              className="w-5/6 rounded-full p-2 text-2xl"
+            />
+          </div>
         </div>
-        <div className="flex items-center justify-center gap-3">
-          <button
-            onClick={(e) => handleSendMessage(e)}
-            className="flex items-center justify-center rounded-full bg-white p-2 text-4xl"
-          >
-            <LuSendHorizonal />
-          </button>
-          <input
-            type="text"
-            ref={newMessageRef}
-            className="w-5/6 rounded-full p-2 text-2xl"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };
