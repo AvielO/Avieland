@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  username: "AvielO",
+  username: localStorage.getItem("username") || "",
   //userType
   //Can be stats of user
 };
@@ -12,9 +12,11 @@ const userSlice = createSlice({
   reducers: {
     userLogin(state, action) {
       state.username = action.payload;
+      localStorage.setItem("username", action.payload);
     },
     userLogout(state, action) {
       state.username = "";
+      localStorage.removeItem("username");
     },
   },
 });
