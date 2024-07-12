@@ -86,23 +86,29 @@ const MessagesPage = () => {
 
   return (
     <div className="m-4 flex">
-      <div className="flex h-fit w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
-        {chatSenders.map((chatSender) => (
-          <Link to={`/messages/${chatSender}`} key={`${chatSender}`}>
-            <div className="flex items-center gap-2">
-              <img className="h-10 w-10" src="user-icon.png" />
-              <span>{chatSender}</span>
-              {notifications.includes(chatSender) ? (
-                <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
-              ) : (
-                ""
-              )}
-            </div>
-          </Link>
-        ))}
-      </div>
+      {chatSenders.length > 0 && (
+        <div className="flex h-fit w-48 flex-col gap-4 bg-gray-50 px-3 py-2">
+          {chatSenders.map((chatSender) => (
+            <Link to={`/messages/${chatSender}`} key={`${chatSender}`}>
+              <div className="flex items-center gap-2">
+                <img className="h-10 w-10" src="/user-icon.png" />
+                <span>{chatSender}</span>
+                {notifications.includes(chatSender) ? (
+                  <div className="h-4 w-4 rounded-full bg-blue-500 shadow-lg"></div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
       {chatUsername && (
         <div className="flex h-full w-full flex-col gap-4 bg-gray-100 p-6">
+          <div className="flex flex-col items-center justify-center">
+            <img className="h-20 w-20" src="/user-icon.png" alt="nou" />
+            <span className="text-4xl font-semibold">{chatUsername}</span>
+          </div>
           <div className="flex flex-col gap-3 rounded-2xl bg-gray-50 p-6">
             {messages.map((message, index) => (
               <div
