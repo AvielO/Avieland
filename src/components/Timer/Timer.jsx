@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { calculateTimeUntilNextFiveMinute } from "../../utils/helpers";
 
 const Timer = () => {
-  const calculateTimeUntilNext5MinuteMark = () => {
-    const now = new Date();
-    const minutes = now.getMinutes();
-    const next5MinuteMark = Math.ceil((minutes + 1) / 5) * 5;
-    const next5Minute = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      now.getHours(),
-      next5MinuteMark,
-    );
-    const timeUntilNext5Minute = Math.round(
-      Math.max(0, (next5Minute - now) / 1000),
-    ); // time in seconds
-
-    return timeUntilNext5Minute;
-  };
-
-  const [time, setTime] = useState(calculateTimeUntilNext5MinuteMark());
+  const [time, setTime] = useState(calculateTimeUntilNextFiveMinute());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,7 +11,7 @@ const Timer = () => {
           return prevTime - 1;
         } else {
           clearInterval(interval);
-          return calculateTimeUntilNext5MinuteMark();
+          return calculateTimeUntilNextFiveMinute();
         }
       });
     }, 1000);
@@ -38,7 +21,7 @@ const Timer = () => {
 
   useEffect(() => {
     if (time === 0) {
-      setTime(calculateTimeUntilNext5MinuteMark());
+      setTime(calculateTimeUntilNextFiveMinute());
     }
   }, [time]);
 

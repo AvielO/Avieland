@@ -54,8 +54,8 @@ const HirePage = () => {
         <h1 className="text-5xl font-semibold underline">העסק חיילים</h1>
         <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
           <img
-            className="h-64 w-56 rounded-3xl"
-            src="background-login.png"
+            className="h-64 w-44 rounded-3xl"
+            src="/npc-pictures/knight.png"
             alt="solider-background"
           />
 
