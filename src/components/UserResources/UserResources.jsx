@@ -1,15 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import Timer from "../Timer/Timer";
+import io from "socket.io-client";
+
+const socket = io(`${process.env.SERVER_URL}`);
 
 const UserResources = () => {
   const { copper, silver, gold, diamond } = useSelector(
     (state) => state.resources,
   );
+  const dispatch = useDispatch();
   const username = useSelector((state) => state.user.username);
 
-  const dispatch = useDispatch();
+  socket.once("update resources", ({ copper, silver, gold, diamond }) => {
+    dispatch(
+      updateResources({
+        copper,
+        silver,
+        gold,
+        diamond,
+      }),
+    );
+  });
+
+  useEffect(() => {
+    socket.emit("listen myself", { username });
+
+    return () => {
+      socket.off("listen myself");
+    };
+  }, []);
 
   useEffect(() => {
     const fetchResources = async () => {
