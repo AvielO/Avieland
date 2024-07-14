@@ -20,7 +20,7 @@ const Timer = () => {
   }, []);
 
   useEffect(() => {
-    if (time === 0) {
+    if (time <= 0) {
       setTime(calculateTimeUntilNextFiveMinute());
     }
   }, [time]);
