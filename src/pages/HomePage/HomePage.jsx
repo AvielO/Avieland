@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { PieChart, Pie, Tooltip, BarChart, Bar, XAxis, Legend } from "recharts";
 
 //Get Workers Distribution
@@ -111,13 +113,24 @@ const bankDistribution = [
   { name: "זהב", value: 6905 },
 ];
 
-
 const data01 = [
   { name: "כוח התקפי", value: 10000 },
   { name: "כוח הגנתי", value: 6905 },
 ];
 
 const HomePage = () => {
+  const username = useSelector((state) => state.user.username);
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const res = await fetch(`${process.env.SERVER_URL}/users/${username}`);
+      const data = await res.json();
+      console.log(data);
+    };
+
+    getUserDetails();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-center">
