@@ -89,6 +89,29 @@ const data02 = [
   },
 ];
 
+//Get Weapons - (Weapon name + How many)
+const weaponsDistribution = [
+  {
+    name: "אקדח",
+    value: 5,
+  },
+  {
+    name: "רובה אוטומטי",
+    value: 4,
+  },
+  {
+    name: "שוטגאן",
+    value: 8,
+  },
+];
+
+const bankDistribution = [
+  { name: "נחושת", value: 10000 },
+  { name: "כסף", value: 6905 },
+  { name: "זהב", value: 6905 },
+];
+
+
 const data01 = [
   { name: "כוח התקפי", value: 10000 },
   { name: "כוח הגנתי", value: 6905 },
@@ -144,11 +167,11 @@ const HomePage = () => {
           </BarChart>
         </div>
         <div className="flex flex-col items-center">
-          <span>כמות הפועלים</span>
+          <span>כמות נשקים</span>
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={data01}
+              data={weaponsDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
@@ -156,11 +179,11 @@ const HomePage = () => {
           </PieChart>
         </div>
         <div className="flex flex-col items-center">
-          <span>כמות הפועלים</span>
+          <span>כמות משאבים בבנק</span>
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={data01}
+              data={bankDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
