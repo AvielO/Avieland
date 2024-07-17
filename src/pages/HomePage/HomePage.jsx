@@ -1,131 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { PieChart, Pie, Tooltip, BarChart, Bar, XAxis, Legend } from "recharts";
 
-//Get Workers Distribution
-const workersDistribution = [
-  { name: "עובדי נחושת", value: 400 },
-  { name: "עובדי כסף", value: 300 },
-  { name: "עובדי זהב", value: 300 },
-];
-
-//Get Power Distribution
-const playerPowerDistribution = [
-  { name: "כוח התקפי", value: 10000 },
-  { name: "כוח הגנתי", value: 6905 },
-];
-
-//Get Reports Distributions - Day, How much attacked and defended
-const data = [
-  {
-    name: "ראשון",
-    attacker: 24,
-    defender: 56,
-  },
-  {
-    name: "שני",
-    attacker: 12,
-    defender: 64,
-  },
-  {
-    name: "שלישי",
-    attacker: 64,
-    defender: 12,
-  },
-  {
-    name: "רביעי",
-    attacker: 35,
-    defender: 53,
-  },
-  {
-    name: "חמישי",
-    attacker: 63,
-    defender: 12,
-  },
-  {
-    name: "שישי",
-    attacker: 4,
-    defender: 62,
-  },
-  {
-    name: "שבת",
-    attacker: 46,
-    defender: 20,
-  },
-];
-const data02 = [
-  {
-    name: "16.07",
-    wins: 12,
-    loses: 24,
-  },
-  {
-    name: "17.07",
-    wins: 52,
-    loses: 12,
-  },
-  {
-    name: "18.07",
-    wins: 52,
-    loses: 74,
-  },
-  {
-    name: "19.07",
-    wins: 16,
-    loses: 25,
-  },
-  {
-    name: "20.07",
-    wins: 22,
-    loses: 17,
-  },
-  {
-    name: "21.07",
-    wins: 11,
-    loses: 1,
-  },
-  {
-    name: "22.07",
-    wins: 63,
-    loses: 32,
-  },
-];
-
-//Get Weapons - (Weapon name + How many)
-const weaponsDistribution = [
-  {
-    name: "אקדח",
-    value: 5,
-  },
-  {
-    name: "רובה אוטומטי",
-    value: 4,
-  },
-  {
-    name: "שוטגאן",
-    value: 8,
-  },
-];
-
-const bankDistribution = [
-  { name: "נחושת", value: 10000 },
-  { name: "כסף", value: 6905 },
-  { name: "זהב", value: 6905 },
-];
-
-const data01 = [
-  { name: "כוח התקפי", value: 10000 },
-  { name: "כוח הגנתי", value: 6905 },
-];
-
 const HomePage = () => {
   const username = useSelector((state) => state.user.username);
+  const [distributions, setDistributions] = useState({
+    workersDistribution: [],
+    playerPowerDistribution: [],
+    reportsTypeDistribution: [],
+    reportsWinLoseDistribution: [],
+    weaponsDistribution: [],
+    bankDistribution: [],
+  });
 
   useEffect(() => {
     const getUserDetails = async () => {
       const res = await fetch(`${process.env.SERVER_URL}/users/${username}`);
       const data = await res.json();
-      console.log(data);
+      setDistributions(data);
     };
 
     getUserDetails();
@@ -139,7 +31,7 @@ const HomePage = () => {
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={workersDistribution}
+              data={distributions.workersDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
@@ -151,7 +43,7 @@ const HomePage = () => {
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={data01}
+              data={distributions.playerPowerDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
@@ -160,7 +52,7 @@ const HomePage = () => {
         </div>
         <div className="flex flex-col items-center">
           <span>כמות דוחות</span>
-          <BarChart width={500} height={400} data={data}>
+          <BarChart width={500} height={400} data={distributions.reportsTypeDistribution}>
             <XAxis dataKey="name" />
             <Tooltip />
             <Bar yAxisId="left" dataKey="attacker" fill="#8884d8" />
@@ -171,7 +63,7 @@ const HomePage = () => {
       <div className="flex justify-center">
         <div className="flex flex-col items-center">
           <span>כמות נצחונות והפסדים</span>
-          <BarChart width={500} height={400} data={data02}>
+          <BarChart width={500} height={400} data={distributions.reportsWinLoseDistribution}>
             <XAxis dataKey="name" />
             <Tooltip />
             <Legend />
@@ -184,7 +76,7 @@ const HomePage = () => {
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={weaponsDistribution}
+              data={distributions.weaponsDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
@@ -196,7 +88,7 @@ const HomePage = () => {
           <PieChart width={500} height={400}>
             <Pie
               dataKey="value"
-              data={bankDistribution}
+              data={distributions.workersDistribution}
               // outerRadius={80}
               fill="#8884d8"
             />
