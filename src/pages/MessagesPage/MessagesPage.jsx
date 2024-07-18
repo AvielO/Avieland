@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import { LuSendHorizonal } from "react-icons/lu";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { formatDate, formatDateToHour } from "../../utils/helpers";
+import { formatDateToHour } from "../../utils/helpers";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
@@ -26,11 +26,6 @@ const MessagesPage = () => {
     };
 
     fetchChatsSenders();
-    socket.emit("listen myself", { username });
-
-    return () => {
-      socket.off("listen myself");
-    };
   }, [username]);
 
   useEffect(() => {

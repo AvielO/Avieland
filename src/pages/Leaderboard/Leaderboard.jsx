@@ -36,7 +36,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch(`${process.env.SERVER_URL}/users`);
+      const res = await fetch(`${process.env.SERVER_URL}/users/leaderboard`);
       if (!res.ok) {
         throw new Error("Could not fetch the users");
       }
