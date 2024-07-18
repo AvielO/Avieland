@@ -52,23 +52,31 @@ const HomePage = () => {
         </div>
         <div className="flex flex-col items-center">
           <span>כמות דוחות</span>
-          <BarChart width={500} height={400} data={distributions.reportsTypeDistribution}>
+          <BarChart
+            width={500}
+            height={400}
+            data={distributions.reportsTypeDistribution}
+          >
             <XAxis dataKey="name" />
             <Tooltip />
-            <Bar yAxisId="left" dataKey="attacker" fill="#8884d8" />
-            <Bar yAxisId="right" dataKey="defender" fill="#82ca9d" />
+            <Bar yAxisId="attacker-defender" dataKey="attacker" fill="#8884d8" />
+            <Bar yAxisId="attacker-defender" dataKey="defender" fill="#82ca9d" />
           </BarChart>
         </div>
       </div>
       <div className="flex justify-center">
         <div className="flex flex-col items-center">
           <span>כמות נצחונות והפסדים</span>
-          <BarChart width={500} height={400} data={distributions.reportsWinLoseDistribution}>
+          <BarChart
+            width={500}
+            height={400}
+            data={distributions.reportsWinLoseDistribution}
+          >
             <XAxis dataKey="name" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="wins" stackId="a" fill="#8884d8" />
-            <Bar dataKey="loses" stackId="a" fill="#82ca9d" />
+            <Bar dataKey="wins" stackId="win-lose" fill="#8884d8" />
+            <Bar dataKey="loses" stackId="win-lose" fill="#82ca9d" />
           </BarChart>
         </div>
         <div className="flex flex-col items-center">
