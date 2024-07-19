@@ -13,6 +13,7 @@ import HirePage from "./pages/HirePage/HirePage";
 import ReportsPage from "./pages/ReportsPage/ReportsPage";
 import BankPage from "./pages/BankPage/BankPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/messages/:chatUsername",
         element: <MessagesPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
