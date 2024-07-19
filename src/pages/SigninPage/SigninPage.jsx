@@ -86,6 +86,9 @@ const SigninPage = () => {
               maxLength={12}
               required
             />
+            <span className="text-md font-semibold text-red-400">
+              {errors.username && errors.username}
+            </span>
           </div>
 
           <div className="m-2 flex flex-col gap-1">
@@ -100,6 +103,9 @@ const SigninPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <span className="text-md font-semibold text-red-400">
+              {errors.password && errors.password}
+            </span>
           </div>
           <span className="text-2xl font-semibold text-red-500">
             {errors.general ? errors.general : ""}
