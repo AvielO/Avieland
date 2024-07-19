@@ -14,6 +14,7 @@ import ReportsPage from "./pages/ReportsPage/ReportsPage";
 import BankPage from "./pages/BankPage/BankPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -29,46 +30,86 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <HomePage />,
+        element: (
+          <PrivateRoute>
+            <HomePage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/leaderboard",
-        element: <Leaderboard />,
+        element: (
+          <PrivateRoute>
+            <Leaderboard />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/user/:username",
-        element: <UserPage />,
+        element: (
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        ),
         loader: userLoader,
       },
       {
         path: "/store",
-        element: <StorePage />,
+        element: (
+          <PrivateRoute>
+            <StorePage />
+          </PrivateRoute>
+        ),
         loader: storeLoader,
       },
       {
         path: "/reports",
-        element: <ReportsPage />,
+        element: (
+          <PrivateRoute>
+            <ReportsPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/reports/:id",
-        element: <ReportPage />,
+        element: (
+          <PrivateRoute>
+            <ReportPage />
+          </PrivateRoute>
+        ),
         loader: reportLoader,
       },
       {
         path: "/hire",
-        element: <HirePage />,
+        element: (
+          <PrivateRoute>
+            <HirePage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/bank",
-        element: <BankPage />,
+        element: (
+          <PrivateRoute>
+            <BankPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/messages",
-        element: <MessagesPage />,
+        element: (
+          <PrivateRoute>
+            <MessagesPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/messages/:chatUsername",
-        element: <MessagesPage />,
+        element: (
+          <PrivateRoute>
+            <MessagesPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
