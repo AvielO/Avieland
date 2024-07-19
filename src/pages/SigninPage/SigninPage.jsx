@@ -6,31 +6,49 @@ import { userLogin } from "../../slices/userSlice";
 const SigninPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+    general: "",
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSigninClick = async (e) => {
     e.preventDefault();
-    setError("");
+    const newErrors = {};
+    setErrors(newErrors);
+
     if (username.trim() === "" || password.trim() === "") {
-      setError("שם המשתמש או הסיסמה חסרים");
+      setErrors({
+        general: "שם משתמש או סיסמה חסרים.",
+      });
       return;
     }
+    if (username.length < 3 || username.length > 16) {
+      newErrors.username = "שם המשתמש חייב להכיל בין 3 ל 16 תווים";
+    }
+    if (password.length < 6 || password.length > 24) {
+      newErrors.password = "הסיסמה חייבת להכיל בין 6 ל24 תווים";
+    }
 
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     try {
       const res = await fetch(
         `${process.env.SERVER_URL}/auth?username=${username}&password=${password}`,
       );
       if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message);
+        const { message } = await res.json();
+        throw new Error(message);
       }
       dispatch(userLogin(username));
       navigate("/home");
     } catch (err) {
-      setError(err.message);
+      setErrors({ general: err.message });
     }
   };
 
@@ -84,7 +102,7 @@ const SigninPage = () => {
             />
           </div>
           <span className="text-2xl font-semibold text-red-500">
-            {error ? error : ""}
+            {errors.general ? errors.general : ""}
           </span>
           <div>
             <button
