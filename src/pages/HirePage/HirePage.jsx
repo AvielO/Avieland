@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 
@@ -11,6 +11,8 @@ const HirePage = () => {
 
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.username);
+
+  const [errors, setErrors] = useState({});
 
   const hireWorkers = async (e) => {
     e.preventDefault();
@@ -34,18 +36,34 @@ const HirePage = () => {
   const hireSoliders = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${process.env.SERVER_URL}/soliders`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        solidersQuantity: solidersQuantityRef.current.value,
-      }),
-    });
-    const { updatedSolidersQuantity, updatedResources } = await res.json();
-    dispatch(updateResources(updatedResources));
+    const newErrors = {};
+    setErrors(newErrors);
+
+    if (isNaN(solidersQuantityRef.current.value)) {
+      newErrors.soliders = "כמות החיילים חייבת להכיל מספר שלם";
+      setErrors(newErrors);
+      return;
+    }
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/soliders`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          solidersQuantity: solidersQuantityRef.current.value,
+        }),
+      });
+      if (!res.ok) {
+        const { message } = await res.json();
+        throw new Error(message);
+      }
+      const { updatedSolidersQuantity, updatedResources } = await res.json();
+      dispatch(updateResources(updatedResources));
+    } catch (err) {
+      setErrors({ soliders: err.message });
+    }
   };
 
   return (
@@ -58,9 +76,7 @@ const HirePage = () => {
             src="/npc-pictures/knight.png"
             alt="solider-background"
           />
-
           <span className="text-2xl font-semibold">חייל התקפי</span>
-
           <div className="flex flex-col items-center">
             <span className="text-2xl font-semibold">עלות</span>
             <div className="flex items-center">
@@ -81,7 +97,10 @@ const HirePage = () => {
             />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-2xl font-semibold text-red-400">
+            {errors.soliders && errors.soliders}
+          </span>
           <button
             onClick={(e) => hireSoliders(e)}
             className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"
