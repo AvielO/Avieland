@@ -22,47 +22,59 @@ const SignupPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const newErrors = {
-      username: "",
-      password: "",
-      general: "",
-    };
+    const newErrors = {};
     setErrors(newErrors);
 
     if (
-      !usernameRef.current.value ||
-      !emailRef.current.value ||
-      !passwordRef.current.value ||
-      !passwordAgainRef.current.value
+      usernameRef.current.value.trim() === "" ||
+      emailRef.current.value.trim() === "" ||
+      passwordRef.current.value.trim() === "" ||
+      passwordAgainRef.current.value.trim() === ""
     ) {
       newErrors.general = "אנא מלא את כל השדות הנדרשים";
     }
 
+    if (
+      usernameRef.current.value.length < 3 ||
+      usernameRef.current.value.length > 12
+    ) {
+      newErrors.username = "שם המשתמש חייב להכיל בין 3 ל12 תווים";
+    }
+    if (
+      passwordRef.current.value.length < 6 ||
+      passwordRef.current.value.length > 24
+    ) {
+      newErrors.password = "הסיסמה חייבת להכיל בין 6 ל24 תווים";
+    }
     if (passwordRef.current.value !== passwordAgainRef.current.value) {
       newErrors.password = "הסיסמאות לא תואמות אחת לשנייה";
     }
 
-    if (!newErrors.username && !newErrors.password && !newErrors.general) {
-      //Signup and navigate
-      const res = await fetch(`${process.env.SERVER_URL}/users`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          username: usernameRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          passwordAgain: passwordAgainRef.current.value,
-          type: "defender", //Change it to options lately
-        }),
-      });
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message);
+    //Signup and navigate
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/users`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username: usernameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            passwordAgain: passwordAgainRef.current.value,
+            type: "defender", //Change it to options lately
+          }),
+        });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message);
+        }
+        dispatch(userLogin(usernameRef.current.value));
+        navigate("/home");
+      } catch (err) {
+        setErrors({ general: err.message });
       }
-      dispatch(userLogin(usernameRef.current.value));
-      navigate("/home");
     } else {
       setErrors(newErrors);
     }
@@ -83,7 +95,7 @@ const SignupPage = () => {
           <p className="text-md mx-4 mt-8 transition-all lg:mx-8 lg:text-2xl xl:text-3xl">
             משחק דפדפן בו תוכלו ליצור את הצבא שלכם.
             <br />
-            משחק שבו תוכלו להתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
+            ולהתחרות בחבריכם בטקטיקת המשחק היחודית שלכם
             <br />
             יש לך כבר שחקן? כנס עכשיו!
           </p>
@@ -114,6 +126,8 @@ const SignupPage = () => {
                   className="h-7 w-full lg:h-9"
                   type="text"
                   name="text"
+                  minLength={3}
+                  maxLength={12}
                   ref={usernameRef}
                   required
                 />
@@ -145,6 +159,8 @@ const SignupPage = () => {
                   className="h-7 w-full lg:h-9"
                   type="password"
                   name="password"
+                  minLength={6}
+                  maxLength={12}
                   ref={passwordRef}
                   required
                 />
@@ -157,6 +173,8 @@ const SignupPage = () => {
                   className="h-7 w-full lg:h-9"
                   type="password"
                   name="password"
+                  minLength={6}
+                  maxLength={12}
                   ref={passwordAgainRef}
                   required
                 />
