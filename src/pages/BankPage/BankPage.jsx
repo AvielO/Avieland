@@ -10,6 +10,7 @@ const BankPage = () => {
     silver: 0,
     gold: 0,
   });
+  const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
 
@@ -39,48 +40,64 @@ const BankPage = () => {
 
   const handleDeposit = async (e, resourceName) => {
     e.preventDefault();
-
-    const res = await fetch(
-      `${process.env.SERVER_URL}/bank/${username}/deposit`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+    try {
+      setErrors({});
+      const res = await fetch(
+        `${process.env.SERVER_URL}/bank/${username}/deposit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            resourceName,
+            copperToDeposit: copperDepRef.current.value,
+            silverToDeposit: silverDepRef.current.value,
+            goldToDeposit: goldDepRef.current.value,
+          }),
         },
-        body: JSON.stringify({
-          resourceName,
-          copperToDeposit: copperDepRef.current.value,
-          silverToDeposit: silverDepRef.current.value,
-          goldToDeposit: goldDepRef.current.value,
-        }),
-      },
-    );
-    const { updatedResources, updatedBankResources } = await res.json();
-    dispatch(updateResources(updatedResources));
-    setBankResources(updatedBankResources);
+      );
+      if (!res.ok) {
+        const { message } = await res.json();
+        throw new Error(message);
+      }
+      const { updatedResources, updatedBankResources } = await res.json();
+      dispatch(updateResources(updatedResources));
+      setBankResources(updatedBankResources);
+    } catch (err) {
+      setErrors({ deposit: err.message });
+    }
   };
 
   const handleWithdraw = async (e, resourceName) => {
     e.preventDefault();
 
-    const res = await fetch(
-      `${process.env.SERVER_URL}/bank/${username}/withdraw`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/bank/${username}/withdraw`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            resourceName,
+            copperToWithdraw: copperWithRef.current.value,
+            silverToWithdraw: silverWithRef.current.value,
+            goldToWithdraw: goldWithRef.current.value,
+          }),
         },
-        body: JSON.stringify({
-          resourceName,
-          copperToWithdraw: copperWithRef.current.value,
-          silverToWithdraw: silverWithRef.current.value,
-          goldToWithdraw: goldWithRef.current.value,
-        }),
-      },
-    );
-    const { updatedResources, updatedBankResources } = await res.json();
-    dispatch(updateResources(updatedResources));
-    setBankResources(updatedBankResources);
+      );
+      if (!res.ok) {
+        const { message } = await res.json();
+        throw new Error(message);
+      }
+      const { updatedResources, updatedBankResources } = await res.json();
+      dispatch(updateResources(updatedResources));
+      setBankResources(updatedBankResources);
+    } catch (err) {
+      setErrors({ withdraw: err.message });
+    }
   };
 
   return (
