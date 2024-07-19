@@ -22,8 +22,8 @@ const Card = ({
     try {
       setError();
 
-      if(quantityRef.current.value <= 0) {
-        throw new Error("אנא קנה מספר נשקים גדול מ0")
+      if (quantityRef.current.value <= 0) {
+        throw new Error("אנא קנה מספר נשקים גדול מ0");
       }
 
       const res = await fetch(`${process.env.SERVER_URL}/store/${weaponID}`, {
@@ -42,6 +42,7 @@ const Card = ({
       }
       const resourcesState = await res.json();
       dispatch(updateResources(resourcesState));
+      quantityRef.current.value = "";
     } catch (err) {
       setError(err.message);
     }

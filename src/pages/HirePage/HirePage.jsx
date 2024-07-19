@@ -48,6 +48,10 @@ const HirePage = () => {
       }
       const { updatedWorkersQuantity, updatedResources } = await res.json();
       dispatch(updateResources(updatedResources));
+
+      copperWorkerQuantityRef.current.value = "";
+      silverWorkerQuantityRef.current.value = "";
+      goldWorkerQuantityRef.current.value = "";
     } catch (err) {
       setErrors({ workers: err.message });
     }
@@ -81,6 +85,8 @@ const HirePage = () => {
       }
       const { updatedSolidersQuantity, updatedResources } = await res.json();
       dispatch(updateResources(updatedResources));
+
+      solidersQuantityRef.current.value = "";
     } catch (err) {
       setErrors({ soliders: err.message });
     }
