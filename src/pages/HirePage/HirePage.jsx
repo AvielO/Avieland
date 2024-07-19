@@ -17,20 +17,41 @@ const HirePage = () => {
   const hireWorkers = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${process.env.SERVER_URL}/workers`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        copperWorkersQuantity: copperWorkerQuantityRef.current.value,
-        silverWorkersQuantity: silverWorkerQuantityRef.current.value,
-        goldWorkersQuantity: goldWorkerQuantityRef.current.value,
-      }),
-    });
-    const { updatedWorkersQuantity, updatedResources } = await res.json();
-    dispatch(updateResources(updatedResources));
+    const newErrors = {};
+    setErrors(newErrors);
+
+    if (
+      isNaN(copperWorkerQuantityRef.current.value) ||
+      isNaN(silverWorkerQuantityRef.current.value) ||
+      isNaN(goldWorkerQuantityRef.current.value)
+    ) {
+      newErrors.workers = "כמות עובדים חייבת להכיל מספר שלם";
+      setErrors(newErrors);
+      return;
+    }
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/workers`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          copperWorkersQuantity: copperWorkerQuantityRef.current.value,
+          silverWorkersQuantity: silverWorkerQuantityRef.current.value,
+          goldWorkersQuantity: goldWorkerQuantityRef.current.value,
+        }),
+      });
+      if (!res.ok) {
+        const { message } = await res.json();
+        console.log(message);
+        throw new Error(message);
+      }
+      const { updatedWorkersQuantity, updatedResources } = await res.json();
+      dispatch(updateResources(updatedResources));
+    } catch (err) {
+      setErrors({ workers: err.message });
+    }
   };
 
   const hireSoliders = async (e) => {
@@ -203,7 +224,10 @@ const HirePage = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-2xl font-semibold text-red-400">
+            {errors.workers && errors.workers}
+          </span>
           <button
             onClick={(e) => hireWorkers(e)}
             className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"
