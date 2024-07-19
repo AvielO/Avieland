@@ -14,7 +14,10 @@ const SigninPage = () => {
   const handleSigninClick = async (e) => {
     e.preventDefault();
     setError("");
-    if (!username || !password) return;
+    if (username.trim() === "" || password.trim() === "") {
+      setError("שם המשתמש או הסיסמה חסרים");
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -86,7 +89,7 @@ const SigninPage = () => {
           <div>
             <button
               onClick={(e) => handleSigninClick(e)}
-              className="rounded bg-sky-600 px-6 py-4 font-semibold text-sky-50"
+              className="rounded-full bg-sky-600 px-6 py-4 font-semibold text-sky-50"
             >
               התחברות
             </button>
