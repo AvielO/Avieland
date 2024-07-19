@@ -7,8 +7,14 @@ import { BiSolidStore } from "react-icons/bi";
 import { TbReportSearch } from "react-icons/tb";
 import { BsBank2 } from "react-icons/bs";
 import { TiMessages } from "react-icons/ti";
+import { MdLogout } from "react-icons/md";
+import { useDispatch } from "react-redux";
+
+import { userLogout } from "../../slices/userSlice";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+
   return (
     <nav className="h-full w-full flex-col">
       <ul className="flex h-full flex-col gap-7">
@@ -60,6 +66,12 @@ const Sidebar = () => {
             <li className="flex items-center gap-1 text-4xl">
               <TiMessages />
               <span className="h-11 text-sky-600">הודעות</span>
+            </li>
+          </NavLink>
+          <NavLink onClick={() => dispatch(userLogout())} to="/signin">
+            <li className="flex items-center gap-1 text-4xl">
+              <MdLogout />
+              <span className="h-11 text-sky-600">התנתק</span>
             </li>
           </NavLink>
         </div>
