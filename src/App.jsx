@@ -70,11 +70,11 @@ const router = createBrowserRouter([
         path: "/messages/:chatUsername",
         element: <MessagesPage />,
       },
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
