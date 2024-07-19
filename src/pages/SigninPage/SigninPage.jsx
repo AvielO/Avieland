@@ -61,6 +61,8 @@ const SigninPage = () => {
               value={username}
               className="rounded border p-2 lg:h-12 lg:w-[42rem]"
               onChange={(e) => setUsername(e.target.value)}
+              minLength={3}
+              maxLength={12}
               required
             />
           </div>
@@ -71,6 +73,8 @@ const SigninPage = () => {
               type="password"
               name="password"
               value={password}
+              minLength={6}
+              maxLength={24}
               className="rounded border p-2 lg:h-12 lg:w-[42rem]"
               onChange={(e) => setPassword(e.target.value)}
               required
