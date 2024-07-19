@@ -44,7 +44,6 @@ const HirePage = () => {
       });
       if (!res.ok) {
         const { message } = await res.json();
-        console.log(message);
         throw new Error(message);
       }
       const { updatedWorkersQuantity, updatedResources } = await res.json();
