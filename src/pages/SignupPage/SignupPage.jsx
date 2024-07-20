@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { userLogin } from "../../slices/userSlice";
 
+const typeToImgPath = {
+  attacker: "/player-type-icons/attacker-icon.png",
+  defender: "/player-type-icons/defender-icon.png",
+  attdefer: "/player-type-icons/attdefer-icon.png",
+};
+
 const SignupPage = () => {
   const usernameRef = useRef();
   const emailRef = useRef();
@@ -15,6 +21,7 @@ const SignupPage = () => {
     password: "",
     general: "",
   });
+  const [typeSelected, setTypeSelected] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,6 +56,9 @@ const SignupPage = () => {
     if (passwordRef.current.value !== passwordAgainRef.current.value) {
       newErrors.password = "הסיסמאות לא תואמות אחת לשנייה";
     }
+    if (!typeSelected) {
+      newErrors.type = "אנא בחר סוג שחקן";
+    }
 
     //Signup and navigate
     if (Object.keys(newErrors).length === 0) {
@@ -63,7 +73,7 @@ const SignupPage = () => {
             email: emailRef.current.value,
             password: passwordRef.current.value,
             passwordAgain: passwordAgainRef.current.value,
-            type: "defender", //Change it to options lately
+            type: typeSelected,
           }),
         });
         if (!res.ok) {
@@ -83,6 +93,14 @@ const SignupPage = () => {
   const handleSigninClick = (e) => {
     e.preventDefault();
     navigate("/signin");
+  };
+
+  const handleCheckboxChange = (type) => {
+    if (type === typeSelected) {
+      setTypeSelected(null);
+    } else {
+      setTypeSelected(type);
+    }
   };
 
   return (
@@ -112,11 +130,11 @@ const SignupPage = () => {
           />
         </div>
 
-        <div className="flex min-h-screen w-full flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] lg:gap-[8dvh]">
+        <div className="flex min-h-screen w-full flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] lg:gap-[6dvh]">
           <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
             הרשמה
           </h1>
-          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[6dvh] lg:gap-[9dvh]">
+          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[5dvh]">
             <div className="flex w-full flex-col gap-2">
               <div className="flex w-full flex-col">
                 <label className="text-2xl font-semibold text-sky-800">
@@ -150,6 +168,52 @@ const SignupPage = () => {
                 />
               </div>
             </div>
+
+            <div className="flex w-full flex-col items-center">
+              <div className="flex w-full flex-row flex-wrap justify-between">
+                <div className="m-2 flex flex-col items-center gap-2">
+                  <input
+                    className="h-6 w-6"
+                    type="checkbox"
+                    checked={typeSelected === "attacker"}
+                    onChange={() => {
+                      handleCheckboxChange("attacker");
+                    }}
+                  />
+                  <img className="h-20 w-20" src={typeToImgPath["attacker"]} />
+                </div>
+                <div className="m-2 flex flex-col items-center gap-2">
+                  <input
+                    className="h-6 w-6"
+                    type="checkbox"
+                    checked={typeSelected === "attdefer"}
+                    onChange={() => {
+                      handleCheckboxChange("attdefer");
+                    }}
+                  />
+                  <img className="h-20 w-20" src={typeToImgPath["attdefer"]} />
+                </div>
+                <div className="m-2 flex flex-col items-center gap-2">
+                  <input
+                    className="h-6 w-6"
+                    type="checkbox"
+                    checked={typeSelected === "defender"}
+                    onChange={() => {
+                      handleCheckboxChange("defender");
+                    }}
+                  />
+                  <img className="h-20 w-20" src={typeToImgPath["defender"]} />
+                </div>
+              </div>
+              <div>
+                {errors.type && (
+                  <span className="text-md font-semibold text-red-500">
+                    {errors.type}
+                  </span>
+                )}
+              </div>
+            </div>
+
             <div className="flex w-full flex-col items-center gap-2">
               <div className="flex w-full flex-col">
                 <label className="text-2xl font-semibold text-sky-800">
