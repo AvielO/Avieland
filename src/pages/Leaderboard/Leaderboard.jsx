@@ -57,7 +57,7 @@ const Leaderboard = () => {
     <>
       {isLoading && (
         <div className="flex items-center justify-center">
-          <CircularProgress size="lg" />
+          <CircularProgress size="lg" variant="soft" />
         </div>
       )}
       {!isLoading && (
