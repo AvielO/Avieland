@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { userLogin } from "../../slices/userSlice";
 
+const typeToImgPath = {
+  attacker: "/player-type-icons/attacker-icon.png",
+  defender: "/player-type-icons/defender-icon.png",
+  attdefer: "/player-type-icons/attdefer-icon.png",
+};
+
 const SignupPage = () => {
   const usernameRef = useRef();
   const emailRef = useRef();
@@ -15,6 +21,7 @@ const SignupPage = () => {
     password: "",
     general: "",
   });
+  const [typeSelected, setTypeSelected] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,6 +92,10 @@ const SignupPage = () => {
     navigate("/signin");
   };
 
+  const handleCheckboxChange = (value) => {
+    setTypeSelected(value);
+  };
+
   return (
     <>
       <div className="grid h-screen grid-cols-2">
@@ -150,6 +161,40 @@ const SignupPage = () => {
                 />
               </div>
             </div>
+
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={typeSelected === "attacker"}
+                  onChange={() => {
+                    handleCheckboxChange("attacker");
+                  }}
+                />
+                <img className="h-16 w-16" src={typeToImgPath["attacker"]} />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={typeSelected === "attdefer"}
+                  onChange={() => {
+                    handleCheckboxChange("attdefer");
+                  }}
+                />
+                <img className="h-16 w-16" src={typeToImgPath["attdefer"]} />
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={typeSelected === "defender"}
+                  onChange={() => {
+                    handleCheckboxChange("defender");
+                  }}
+                />
+                <img className="h-16 w-16" src={typeToImgPath["defender"]} />
+              </div>
+            </div>
+
             <div className="flex w-full flex-col items-center gap-2">
               <div className="flex w-full flex-col">
                 <label className="text-2xl font-semibold text-sky-800">
