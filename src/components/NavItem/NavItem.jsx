@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const NavItem = ({ route, title, children, onClick }) => {
   const handleClick = () => {
     if (onClick) {

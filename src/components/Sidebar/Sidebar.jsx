@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 import { userLogout } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import NavItem from "../../components/NavItem/NavItem";
 
 const routeToTitleMap = {
   home: "בית",
@@ -22,6 +23,16 @@ const routeToTitleMap = {
   bank: "בנק",
   messages: "הודעות",
   signin: "התנתק",
+};
+const routeToIconMap = {
+  home: <MdHome />,
+  leaderboard: <FaMedal />,
+  hire: <BsPersonWorkspace />,
+  store: <BiSolidStore />,
+  reports: <TbReportSearch />,
+  bank: <BsBank2 />,
+  messages: <TiMessages />,
+  signin: <MdLogout />,
 };
 
 const Sidebar = () => {
@@ -39,54 +50,16 @@ const Sidebar = () => {
           <img src="/logo.png" alt="logo's game" />
         </Link>
         <div className="flex flex-col items-center gap-14 text-4xl">
-          <NavLink to="/home">
-            <li className="flex items-center gap-1">
-              <MdHome />
-              <span className="h-11 text-sky-600">בית</span>
-            </li>
-          </NavLink>
-          <NavLink to="/leaderboard">
-            <li className="flex items-center gap-1">
-              <FaMedal />
-              <span className="h-11 text-sky-600">טבלת המובילים</span>
-            </li>
-          </NavLink>
-          <NavLink to="/hire">
-            <li className="flex items-center gap-1">
-              <BsPersonWorkspace />
-              <span className="h-11 text-sky-600">העסקה</span>
-            </li>
-          </NavLink>
-          <NavLink to="/store">
-            <li className="flex items-center gap-1">
-              <BiSolidStore />
-              <span className="h-11 text-sky-600">חנות</span>
-            </li>
-          </NavLink>
-          <NavLink to="/reports">
-            <li className="flex items-center gap-1">
-              <TbReportSearch />
-              <span className="h-11 text-sky-600">דוחות</span>
-            </li>
-          </NavLink>
-          <NavLink to="/bank">
-            <li className="flex items-center gap-1">
-              <BsBank2 />
-              <span className="h-11 text-sky-600">בנק</span>
-            </li>
-          </NavLink>
-          <NavLink to="/messages">
-            <li className="flex items-center gap-1">
-              <TiMessages />
-              <span className="h-11 text-sky-600">הודעות</span>
-            </li>
-          </NavLink>
-          <NavLink onClick={() => handleLogout()} to="/signin">
-            <li className="flex items-center gap-1">
-              <MdLogout />
-              <span className="h-11 text-sky-600">התנתק</span>
-            </li>
-          </NavLink>
+          {Object.entries(routeToTitleMap).map(([route, title]) => (
+            <NavItem
+              route={route}
+              title={title}
+              onClick={route === "signin" ? handleLogout : false}
+              key={route}
+            >
+              {routeToIconMap[route]}
+            </NavItem>
+          ))}
         </div>
       </ul>
     </nav>
