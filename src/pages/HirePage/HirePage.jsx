@@ -118,7 +118,7 @@ const HirePage = () => {
         <h1 className="text-5xl font-semibold underline">העסק עובדים</h1>
         <div className="flex w-full flex-wrap justify-evenly">
           <HireCard
-            workerPictureURL={"background-login.png"}
+            workerPictureURL={"workers-icons/copper-worker.png"}
             title={"עובד נחושת"}
             resourcePictureURL={"/resources-icons/copper-icon.png"}
             price={100}
@@ -126,7 +126,7 @@ const HirePage = () => {
           />
 
           <HireCard
-            workerPictureURL={"background-login.png"}
+            workerPictureURL={"workers-icons/silver-worker.png"}
             title={"עובד כסף"}
             resourcePictureURL={"/resources-icons/silver-icon.png"}
             price={100}
@@ -134,7 +134,7 @@ const HirePage = () => {
           />
 
           <HireCard
-            workerPictureURL={"background-login.png"}
+            workerPictureURL={"workers-icons/gold-worker.png"}
             title={"עובד זהב"}
             resourcePictureURL={"/resources-icons/gold-icon.png"}
             price={100}

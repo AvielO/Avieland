@@ -7,7 +7,7 @@ const StorePage = () => {
   const storeItems = useLoaderData();
 
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-wrap gap-8">
       {storeItems.map((item) => (
         <Card
           weaponID={item.id}
