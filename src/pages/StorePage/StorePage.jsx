@@ -2,7 +2,6 @@ import { getStore } from "../../services/backendAPI.js";
 
 import Card from "../../components/Card/Card";
 import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
 
 const StorePage = () => {
   const storeItems = useLoaderData();

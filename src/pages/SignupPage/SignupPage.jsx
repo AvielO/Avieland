@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { userLogin } from "../../slices/userSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -63,7 +64,7 @@ const SignupPage = () => {
     //Signup and navigate
     if (Object.keys(newErrors).length === 0) {
       try {
-        const res = await fetch(`${process.env.SERVER_URL}/users`, {
+        const res = await fetchWrapper(`${process.env.SERVER_URL}/users`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -76,10 +77,6 @@ const SignupPage = () => {
             type: typeSelected,
           }),
         });
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message);
-        }
         dispatch(userLogin(usernameRef.current.value));
         navigate("/home");
       } catch (err) {

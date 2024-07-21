@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const BankPage = () => {
   const username = useSelector((state) => state.user.username);
@@ -25,13 +26,9 @@ const BankPage = () => {
 
   useEffect(() => {
     const getBankResources = async () => {
-      const res = await fetch(
+      const { bank: bankResources } = await fetchWrapper(
         `${process.env.SERVER_URL}/users/${username}/bank`,
       );
-      if (!res.ok) {
-        throw new Error("User not found");
-      }
-      const { bank: bankResources } = await res.json();
       setBankResources(bankResources);
     };
 
@@ -42,7 +39,7 @@ const BankPage = () => {
     e.preventDefault();
     try {
       setErrors({});
-      const res = await fetch(
+      const { updatedResources, updatedBankResources } = await fetchWrapper(
         `${process.env.SERVER_URL}/bank/${username}/deposit`,
         {
           method: "POST",
@@ -57,11 +54,6 @@ const BankPage = () => {
           }),
         },
       );
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-      const { updatedResources, updatedBankResources } = await res.json();
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
     } catch (err) {
@@ -73,7 +65,7 @@ const BankPage = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(
+      const { updatedResources, updatedBankResources } = await fetchWrapper(
         `${process.env.SERVER_URL}/bank/${username}/withdraw`,
         {
           method: "POST",
@@ -88,11 +80,6 @@ const BankPage = () => {
           }),
         },
       );
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-      const { updatedResources, updatedBankResources } = await res.json();
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
     } catch (err) {

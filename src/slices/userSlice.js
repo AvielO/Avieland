@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  username: localStorage.getItem("username") || "",
-  //userType
-  //Can be stats of user
+  username: "",
+  status: "idle",
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -12,14 +12,22 @@ const userSlice = createSlice({
   reducers: {
     userLogin(state, action) {
       state.username = action.payload;
-      localStorage.setItem("username", action.payload);
     },
     userLogout(state, action) {
       state.username = "";
-      localStorage.removeItem("username");
+    },
+    setUser(state, action) {
+      state.user = action.payload;
+    },
+    setStatus(state, action) {
+      state.status = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
     },
   },
 });
 
-export const { userLogin, userLogout } = userSlice.actions;
+export const { userLogin, userLogout, setUser, setStatus, setError } =
+  userSlice.actions;
 export default userSlice.reducer;
