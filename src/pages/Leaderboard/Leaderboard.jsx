@@ -63,8 +63,6 @@ const Leaderboard = () => {
     setPage(() => nextPage);
   };
 
-  //UseEffect for fetch data of all players
-  //Optional - sort of the list.DF
   return (
     <>
       {isLoading && (
