@@ -1,9 +1,15 @@
-const NavItem = () => {
+const NavItem = ({ route, title, children, onClick }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <NavLink onClick={() => handleLogout()} to="/signin">
+    <NavLink onClick={handleClick} to={`/${route}`}>
       <li className="flex items-center gap-1">
-        <MdLogout />
-        <span className="h-11 text-sky-600">התנתק</span>
+        {children}
+        <span className="h-11 text-sky-600">{title}</span>
       </li>
     </NavLink>
   );

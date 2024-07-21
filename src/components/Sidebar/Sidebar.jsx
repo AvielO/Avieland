@@ -13,6 +13,17 @@ import { useDispatch } from "react-redux";
 import { userLogout } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 
+const routeToTitleMap = {
+  home: "בית",
+  leaderboard: "טבלת המובילים",
+  hire: "העסקה",
+  store: "חנות",
+  reports: "דוחות",
+  bank: "בנק",
+  messages: "הודעות",
+  signin: "התנתק",
+};
+
 const Sidebar = () => {
   const dispatch = useDispatch();
 
