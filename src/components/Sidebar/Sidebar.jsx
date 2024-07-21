@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { MdHome } from "react-icons/md";
 import { FaMedal } from "react-icons/fa6";
@@ -12,74 +12,54 @@ import { useDispatch } from "react-redux";
 
 import { userLogout } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import NavItem from "../../components/NavItem/NavItem";
+
+const routeToTitleMap = {
+  home: "בית",
+  leaderboard: "טבלת המובילים",
+  hire: "העסקה",
+  store: "חנות",
+  reports: "דוחות",
+  bank: "בנק",
+  messages: "הודעות",
+  signin: "התנתק",
+};
+const routeToIconMap = {
+  home: <MdHome />,
+  leaderboard: <FaMedal />,
+  hire: <BsPersonWorkspace />,
+  store: <BiSolidStore />,
+  reports: <TbReportSearch />,
+  bank: <BsBank2 />,
+  messages: <TiMessages />,
+  signin: <MdLogout />,
+};
 
 const Sidebar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    const res = await fetchWrapper(`${process.env.SERVER_URL}/auth/logout`);
+    await fetchWrapper(`${process.env.SERVER_URL}/auth/logout`);
     dispatch(userLogout());
   };
 
   return (
-    <nav className="h-full w-full flex-col">
-      <ul className="flex h-full flex-col gap-7">
-        <div className="mt-6">
-          <NavLink to="/home">
-            <li>
-              <img src="/logo.png" alt="logo Game" />
-            </li>
-          </NavLink>
-        </div>
-        <div className="flex h-full flex-col items-center gap-14">
-          <NavLink to="/home">
-            <li className="flex items-center text-4xl">
-              <MdHome />
-              <span className="h-11 text-sky-600">בית</span>
-            </li>
-          </NavLink>
-          <NavLink to="/leaderboard">
-            <li className="flex items-center gap-1 text-4xl">
-              <FaMedal />
-              <span className="h-11 text-sky-600">טבלת המובילים</span>
-            </li>
-          </NavLink>
-          <NavLink to="/hire">
-            <li className="flex items-center gap-1 text-4xl">
-              <BsPersonWorkspace />
-              <span className="h-11 text-sky-600">העסקה</span>
-            </li>
-          </NavLink>
-          <NavLink to="/store">
-            <li className="flex items-center gap-1 text-4xl">
-              <BiSolidStore />
-              <span className="h-11 text-sky-600">חנות</span>
-            </li>
-          </NavLink>
-          <NavLink to="/reports">
-            <li className="flex items-center gap-1 text-4xl">
-              <TbReportSearch />
-              <span className="h-11 text-sky-600">דוחות</span>
-            </li>
-          </NavLink>
-          <NavLink to="/bank">
-            <li className="flex items-center gap-1 text-4xl">
-              <BsBank2 />
-              <span className="h-11 text-sky-600">בנק</span>
-            </li>
-          </NavLink>
-          <NavLink to="/messages">
-            <li className="flex items-center gap-1 text-4xl">
-              <TiMessages />
-              <span className="h-11 text-sky-600">הודעות</span>
-            </li>
-          </NavLink>
-          <NavLink onClick={() => handleLogout()} to="/signin">
-            <li className="flex items-center gap-1 text-4xl">
-              <MdLogout />
-              <span className="h-11 text-sky-600">התנתק</span>
-            </li>
-          </NavLink>
+    <nav>
+      <ul className="flex flex-col gap-7">
+        <Link to="/home">
+          <img src="/logo.png" alt="logo's game" />
+        </Link>
+        <div className="flex flex-col items-center gap-14 text-4xl">
+          {Object.entries(routeToTitleMap).map(([route, title]) => (
+            <NavItem
+              route={route}
+              title={title}
+              onClick={route === "signin" ? handleLogout : false}
+              key={route}
+            >
+              {routeToIconMap[route]}
+            </NavItem>
+          ))}
         </div>
       </ul>
     </nav>
