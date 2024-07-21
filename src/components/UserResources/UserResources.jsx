@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import Timer from "../Timer/Timer";
 import io from "socket.io-client";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
@@ -25,30 +26,29 @@ const UserResources = () => {
   });
 
   useEffect(() => {
-    socket.emit("listen myself", { username });
-
+    if (username) {
+      socket.emit("listen myself", { username });
+    }
     return () => {
       socket.off("listen myself");
     };
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     const fetchResources = async () => {
-      const res = await fetch(
-        `${process.env.SERVER_URL}/users/${username}/resources`,
-      );
-      if (!res.ok) {
-        throw new Error("Could not fetch the resources");
+      if (username) {
+        const userResources = await fetchWrapper(
+          `${process.env.SERVER_URL}/users/${username}/resources`,
+        );
+        dispatch(
+          updateResources({
+            copper: userResources.resources.copper,
+            silver: userResources.resources.silver,
+            gold: userResources.resources.gold,
+            diamond: userResources.resources.diamond,
+          }),
+        );
       }
-      const userResources = await res.json();
-      dispatch(
-        updateResources({
-          copper: userResources.resources.copper,
-          silver: userResources.resources.silver,
-          gold: userResources.resources.gold,
-          diamond: userResources.resources.diamond,
-        }),
-      );
     };
 
     fetchResources();

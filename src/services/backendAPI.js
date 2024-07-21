@@ -1,28 +1,27 @@
+import { fetchWrapper } from "../utils/fetchWarpper";
+
 export const getUserInformation = async (username) => {
-  const res = await fetch(`${process.env.SERVER_URL}/users/${username}/info`);
-  const data = await res.json();
+  const data = await fetchWrapper(
+    `${process.env.SERVER_URL}/users/${username}/info`,
+  );
   return data;
 };
 
 export const getStore = async () => {
-  const res = await fetch(`${process.env.SERVER_URL}/store`);
-  const data = await res.json();
+  const data = await fetchWrapper(`${process.env.SERVER_URL}/store`);
   return data;
 };
 
 export const getReportInformation = async (reportID) => {
-  const res = await fetch(`${process.env.SERVER_URL}/reports/${reportID}`);
-  const data = await res.json();
+  const data = await fetchWrapper(
+    `${process.env.SERVER_URL}/reports/${reportID}`,
+  );
   return data;
 };
 
 export const fetchResources = async (username) => {
-  const res = await fetch(
+  const userResources = await fetchWrapper(
     `${process.env.SERVER_URL}/users/${username}/resources`,
   );
-  if (!res.ok) {
-    throw new Error("Could not fetch the resources");
-  }
-  const userResources = await res.json();
   return userResources;
 };

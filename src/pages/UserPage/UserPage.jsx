@@ -8,6 +8,7 @@ import { MdOutlineGroups } from "react-icons/md";
 import { VscTypeHierarchy } from "react-icons/vsc";
 
 import { updateResources } from "../../slices/resourcesSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper.js";
 
 export const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -25,7 +26,7 @@ const UserPage = () => {
 
   const handleAttack = async () => {
     //fetch post/patch of attack - username, destUsername
-    const res = await fetch(
+    const { reportID, updatedResources } = await fetchWrapper(
       `${process.env.SERVER_URL}/users/${username}/attack/${userDetails.username}`,
       {
         method: "POST",
@@ -34,8 +35,6 @@ const UserPage = () => {
         },
       },
     );
-    const { reportID, updatedResources } = await res.json();
-
     dispatch(updateResources(updatedResources));
     navigate(`/reports/${reportID}`);
     //Future plan - Decrease Turns of something to avoid spamming

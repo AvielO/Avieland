@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const HirePage = () => {
   const solidersQuantityRef = useRef();
@@ -30,23 +31,21 @@ const HirePage = () => {
       return;
     }
     try {
-      const res = await fetch(`${process.env.SERVER_URL}/workers`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const { updatedWorkersQuantity, updatedResources } = await fetchWrapper(
+        `${process.env.SERVER_URL}/workers`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            copperWorkersQuantity: copperWorkerQuantityRef.current.value,
+            silverWorkersQuantity: silverWorkerQuantityRef.current.value,
+            goldWorkersQuantity: goldWorkerQuantityRef.current.value,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          copperWorkersQuantity: copperWorkerQuantityRef.current.value,
-          silverWorkersQuantity: silverWorkerQuantityRef.current.value,
-          goldWorkersQuantity: goldWorkerQuantityRef.current.value,
-        }),
-      });
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-      const { updatedWorkersQuantity, updatedResources } = await res.json();
+      );
       dispatch(updateResources(updatedResources));
 
       copperWorkerQuantityRef.current.value = "";
@@ -69,21 +68,19 @@ const HirePage = () => {
       return;
     }
     try {
-      const res = await fetch(`${process.env.SERVER_URL}/soliders`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const { updatedSolidersQuantity, updatedResources } = await fetchWrapper(
+        `${process.env.SERVER_URL}/soliders`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            solidersQuantity: solidersQuantityRef.current.value,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          solidersQuantity: solidersQuantityRef.current.value,
-        }),
-      });
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-      const { updatedSolidersQuantity, updatedResources } = await res.json();
+      );
       dispatch(updateResources(updatedResources));
 
       solidersQuantityRef.current.value = "";

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const Card = ({
   weaponID,
@@ -26,21 +27,19 @@ const Card = ({
         throw new Error("אנא קנה מספר נשקים גדול מ0");
       }
 
-      const res = await fetch(`${process.env.SERVER_URL}/store/${weaponID}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+      const resourcesState = await fetchWrapper(
+        `${process.env.SERVER_URL}/store/${weaponID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            quantity: quantityRef.current.value,
+          }),
         },
-        body: JSON.stringify({
-          username,
-          quantity: quantityRef.current.value,
-        }),
-      });
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-      const resourcesState = await res.json();
+      );
       dispatch(updateResources(resourcesState));
       quantityRef.current.value = "";
     } catch (err) {
