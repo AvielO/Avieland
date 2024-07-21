@@ -102,8 +102,8 @@ const SignupPage = () => {
 
   return (
     <>
-      <div className="grid h-screen grid-cols-2">
-        <div className="flex flex-col items-center justify-center bg-sky-50">
+      <div className="flex w-full flex-col md:flex-row">
+        <div className="flex flex-col items-center justify-center bg-sky-50 md:w-1/2">
           <h1 className="mx-4 mt-12 text-5xl text-sky-600 transition-all lg:mx-8 lg:text-6xl xl:text-7xl">
             ברוכים הבאים לאביאלנד
           </h1>
@@ -127,7 +127,7 @@ const SignupPage = () => {
           />
         </div>
 
-        <div className="flex min-h-screen w-full flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] lg:gap-[6dvh]">
+        <div className="flex min-h-screen md:w-1/2 flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] lg:gap-[6dvh]">
           <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
             הרשמה
           </h1>
