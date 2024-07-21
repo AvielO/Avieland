@@ -55,7 +55,10 @@ const Leaderboard = () => {
   }, []);
 
   const handlePagination = (direction) => {
-    console.log(direction);
+    const nextPage = direction === "forward" ? page + 1 : page - 1;
+    if (nextPage < 1) return;
+
+    setPage(() => nextPage);
   };
 
   //UseEffect for fetch data of all players
