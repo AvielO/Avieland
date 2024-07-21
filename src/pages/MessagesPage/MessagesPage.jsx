@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 import { formatDateToHour } from "../../utils/helpers";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 
-const socket = io(`${process.env.SERVER_URL}`);
+const socket = io(`${process.env.SERVER_URL}`, {
+  withCredentials: true,
+});
 
 const MessagesPage = () => {
   const newMessageRef = useRef();
