@@ -17,6 +17,16 @@ const Leaderboard = () => {
     direction: "null",
   });
 
+  const fetchUsers = async () => {
+    setIsLoading(true);
+    const { leaderboardUsers, pages } = await fetchWrapper(
+      `${process.env.SERVER_URL}/users/leaderboard/${page}`,
+    );
+    setUsers(leaderboardUsers);
+    setTotalPages(pages);
+    setIsLoading(false);
+  };
+
   const handleSort = (columnName) => {
     let sortedArray = [...users];
     let direction = "asc";
@@ -43,18 +53,8 @@ const Leaderboard = () => {
   };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      setIsLoading(true);
-      const { leaderboardUsers, pages } = await fetchWrapper(
-        `${process.env.SERVER_URL}/users/leaderboard/${page}`,
-      );
-      setUsers(leaderboardUsers);
-      setTotalPages(pages);
-      setIsLoading(false);
-    };
-
     fetchUsers();
-  }, []);
+  }, [page]);
 
   const handlePagination = (direction) => {
     const nextPage = direction === "forward" ? page + 1 : page - 1;
@@ -62,20 +62,6 @@ const Leaderboard = () => {
     if (nextPage > totalPages) return;
     setPage(() => nextPage);
   };
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setIsLoading(true);
-      const { leaderboardUsers, pages } = await fetchWrapper(
-        `${process.env.SERVER_URL}/users/leaderboard/${page}`,
-      );
-      setUsers(leaderboardUsers);
-      setTotalPages(pages);
-      setIsLoading(false);
-    };
-
-    fetchUsers();
-  }, [page]);
 
   //UseEffect for fetch data of all players
   //Optional - sort of the list.DF
