@@ -58,8 +58,8 @@ const SigninPage = () => {
     //justify-center - Vertically - אנכי
     //items-center - Horizontally - אופקי
 
-    <div className="grid h-screen grid-cols-2">
-      <div className="flex flex-col items-center justify-center gap-6 bg-sky-200 bg-cover bg-center">
+    <div className="flex h-screen w-full flex-col md:flex-row">
+      <div className="flex flex-col items-center justify-center gap-6 bg-sky-200 bg-cover bg-center md:w-1/2">
         <p className="mb-4 text-7xl font-semibold text-sky-600 underline md:text-8xl lg:mb-10 lg:text-[168px]">
           כניסה
         </p>
@@ -77,7 +77,7 @@ const SigninPage = () => {
               type="text"
               name="name"
               value={username}
-              className="rounded border p-2 lg:h-12 lg:w-[42rem]"
+              className="rounded border p-2 md:w-[18rem] lg:h-12 lg:w-[42rem]"
               onChange={(e) => setUsername(e.target.value)}
               minLength={3}
               maxLength={12}
@@ -96,7 +96,7 @@ const SigninPage = () => {
               value={password}
               minLength={6}
               maxLength={24}
-              className="rounded border p-2 lg:h-12 lg:w-[42rem]"
+              className="rounded border p-2 md:w-[18rem] lg:h-12 lg:w-[42rem]"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -110,7 +110,7 @@ const SigninPage = () => {
           <div>
             <button
               onClick={(e) => handleSigninClick(e)}
-              className="rounded-full bg-sky-600 px-6 py-4 font-semibold text-sky-50"
+              className="mb-4 rounded-full bg-sky-600 px-6 py-4 font-semibold text-sky-50"
             >
               התחברות
             </button>
@@ -118,7 +118,7 @@ const SigninPage = () => {
         </form>
       </div>
 
-      <div className="flex flex-col items-center justify-center bg-sky-50">
+      <div className="flex flex-col items-center justify-center bg-sky-50 md:w-1/2">
         <h1 className="mx-4 mt-12 text-5xl text-sky-600 lg:mx-8 lg:text-8xl">
           ברוכים הבאים לאביאלנד
         </h1>
