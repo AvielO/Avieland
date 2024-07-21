@@ -1,12 +1,13 @@
 export async function fetchWrapper(url, options = {}) {
-  const response = await fetch(url, {
+  const res = await fetch(url, {
     ...options,
     credentials: "include",
   });
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+  if (!res.ok) {
+    const { message } = await res.json();
+    throw new Error(message);
   }
 
-  return response.json();
+  return res.json();
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ReportItem from "../../components/ReportItem/ReportItem";
 import { CircularProgress } from "@mui/joy";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const ReportsPage = () => {
   const [reports, setReports] = useState([]);
@@ -12,10 +13,9 @@ const ReportsPage = () => {
     const fetchReports = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch(
+        const { reports } = await fetchWrapper(
           `${process.env.SERVER_URL}/users/${username}/reports`,
         );
-        const { reports } = await res.json();
         setReports(reports);
         setIsLoading(false);
       } catch (err) {

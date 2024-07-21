@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import LeaderboardItem from "../../components/LeaderboardItem/LeaderboardItem";
 import { sortByAmount, sortByName } from "../../utils/columnSorts";
 import CircularProgress from "@mui/joy/CircularProgress";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const Leaderboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,11 +40,9 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       setIsLoading(true);
-      const res = await fetch(`${process.env.SERVER_URL}/users/leaderboard`);
-      if (!res.ok) {
-        throw new Error("Could not fetch the users");
-      }
-      const leaderboardUsers = await res.json();
+      const leaderboardUsers = await fetchWrapper(
+        `${process.env.SERVER_URL}/users/leaderboard`,
+      );
       setUsers(leaderboardUsers);
       setIsLoading(false);
     };

@@ -11,9 +11,15 @@ import { MdLogout } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 import { userLogout } from "../../slices/userSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    const res = await fetchWrapper(`${process.env.SERVER_URL}/auth/logout`);
+    dispatch(userLogout());
+  };
 
   return (
     <nav className="h-full w-full flex-col">
@@ -68,7 +74,7 @@ const Sidebar = () => {
               <span className="h-11 text-sky-600">הודעות</span>
             </li>
           </NavLink>
-          <NavLink onClick={() => dispatch(userLogout())} to="/signin">
+          <NavLink onClick={() => handleLogout()} to="/signin">
             <li className="flex items-center gap-1 text-4xl">
               <MdLogout />
               <span className="h-11 text-sky-600">התנתק</span>

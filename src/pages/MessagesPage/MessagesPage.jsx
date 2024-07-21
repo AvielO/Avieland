@@ -5,6 +5,7 @@ import { LuSendHorizonal } from "react-icons/lu";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { formatDateToHour } from "../../utils/helpers";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
@@ -20,8 +21,9 @@ const MessagesPage = () => {
 
   useEffect(() => {
     const fetchChatsSenders = async () => {
-      const res = await fetch(`${process.env.SERVER_URL}/chats/${username}`);
-      const { uniqueSenders } = await res.json();
+      const { uniqueSenders } = await fetchWrapper(
+        `${process.env.SERVER_URL}/chats/${username}`,
+      );
       setChatSenders(uniqueSenders);
     };
 

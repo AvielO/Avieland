@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../slices/userSlice";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const SigninPage = () => {
   const [username, setUsername] = useState("");
@@ -38,13 +39,9 @@ const SigninPage = () => {
       return;
     }
     try {
-      const res = await fetch(
+      const res = await fetchWrapper(
         `${process.env.SERVER_URL}/auth?username=${username}&password=${password}`,
       );
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
       dispatch(userLogin(username));
       navigate("/home");
     } catch (err) {

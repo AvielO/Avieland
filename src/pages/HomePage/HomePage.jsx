@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { PieChart, Pie, Tooltip, BarChart, Bar, XAxis, Cell } from "recharts";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const ATTACKE_DEFENDER_COLORS = ["#FF4500", "#32CD32"];
 const RESOURCES_COLORS = ["#B87333", "#C0C0C0", "#FFD700"];
@@ -31,8 +32,9 @@ const HomePage = () => {
 
   useEffect(() => {
     const getUserDetails = async () => {
-      const res = await fetch(`${process.env.SERVER_URL}/users/${username}`);
-      const data = await res.json();
+      const data = await fetchWrapper(
+        `${process.env.SERVER_URL}/users/${username}`,
+      );
       setDistributions(data);
     };
 
