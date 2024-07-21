@@ -2,10 +2,10 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import HireCard from "../../components/HireCard/HireCard";
 
 const HirePage = () => {
   const solidersQuantityRef = useRef();
-
   const goldWorkerQuantityRef = useRef();
   const silverWorkerQuantityRef = useRef();
   const copperWorkerQuantityRef = useRef();
@@ -93,33 +93,14 @@ const HirePage = () => {
     <div className="flex flex-col gap-6">
       <section className="flex flex-col items-center gap-6">
         <h1 className="text-5xl font-semibold underline">העסק חיילים</h1>
-        <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
-          <img
-            className="h-64 w-44 rounded-3xl"
-            src="/npc-pictures/knight.png"
-            alt="solider-background"
-          />
-          <span className="text-2xl font-semibold">חייל התקפי</span>
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-semibold">עלות</span>
-            <div className="flex items-center">
-              <img
-                className="h-8 w-8"
-                src="/resources-icons/gold-icon.png"
-                alt="gold-resource-icon"
-              />
-              <span className="text-2xl">100</span>
-            </div>
-          </div>
+        <HireCard
+          workerPictureURL={"/npc-pictures/knight.png"}
+          title={"חייל התקפי"}
+          resourcePictureURL={"/resources-icons/gold-icon.png"}
+          price={100}
+          resourceRef={solidersQuantityRef}
+        />
 
-          <div className="flex items-center gap-1 text-xl">
-            <label>כמות: </label>
-            <input
-              ref={solidersQuantityRef}
-              className="h-6 w-12 rounded-full text-center"
-            />
-          </div>
-        </div>
         <div className="flex flex-col items-center gap-2">
           <span className="text-2xl font-semibold text-red-400">
             {errors.soliders && errors.soliders}
@@ -135,96 +116,30 @@ const HirePage = () => {
 
       <section className="flex flex-col items-center gap-6">
         <h1 className="text-5xl font-semibold underline">העסק עובדים</h1>
-        <div className="flex w-full justify-around">
-          <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
-            <img
-              className="h-64 w-56 rounded-3xl"
-              src="background-login.png"
-              alt="solider-background"
-            />
+        <div className="flex w-full flex-wrap justify-evenly">
+          <HireCard
+            workerPictureURL={"workers-icons/copper-worker.png"}
+            title={"עובד נחושת"}
+            resourcePictureURL={"/resources-icons/copper-icon.png"}
+            price={100}
+            resourceRef={copperWorkerQuantityRef}
+          />
 
-            <span className="text-2xl font-semibold">עובד נחושת</span>
+          <HireCard
+            workerPictureURL={"workers-icons/silver-worker.png"}
+            title={"עובד כסף"}
+            resourcePictureURL={"/resources-icons/silver-icon.png"}
+            price={100}
+            resourceRef={silverWorkerQuantityRef}
+          />
 
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-semibold">עלות</span>
-              <div className="flex items-center">
-                <img
-                  className="h-8 w-8"
-                  src="/resources-icons/copper-icon.png"
-                  alt="copper-resource-icon"
-                />
-                <span className="text-2xl">100</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-1 text-xl">
-              <label>כמות: </label>
-              <input
-                ref={copperWorkerQuantityRef}
-                className="h-6 w-12 rounded-full text-center"
-              />
-            </div>
-          </div>
-
-          <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
-            <img
-              className="h-64 w-56 rounded-3xl"
-              src="background-login.png"
-              alt="solider-background"
-            />
-
-            <span className="text-2xl font-semibold">עובד כסף</span>
-
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-semibold">עלות</span>
-              <div className="flex items-center">
-                <img
-                  className="h-8 w-8"
-                  src="/resources-icons/silver-icon.png"
-                  alt="silver-resource-icon"
-                />
-                <span className="text-2xl">100</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-1 text-xl">
-              <label>כמות: </label>
-              <input
-                ref={silverWorkerQuantityRef}
-                className="h-6 w-12 rounded-full text-center"
-              />
-            </div>
-          </div>
-
-          <div className="flex w-fit flex-col items-center gap-2 rounded-3xl bg-sky-100 p-4 drop-shadow-md">
-            <img
-              className="h-64 w-56 rounded-3xl"
-              src="background-login.png"
-              alt="solider-background"
-            />
-
-            <span className="text-2xl font-semibold">עובד זהב</span>
-
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-semibold">עלות</span>
-              <div className="flex items-center">
-                <img
-                  className="h-8 w-8"
-                  src="/resources-icons/gold-icon.png"
-                  alt="gold-resource-icon"
-                />
-                <span className="text-2xl">100</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-1 text-xl">
-              <label>כמות: </label>
-              <input
-                ref={goldWorkerQuantityRef}
-                className="h-6 w-12 rounded-full text-center"
-              />
-            </div>
-          </div>
+          <HireCard
+            workerPictureURL={"workers-icons/gold-worker.png"}
+            title={"עובד זהב"}
+            resourcePictureURL={"/resources-icons/gold-icon.png"}
+            price={100}
+            resourceRef={goldWorkerQuantityRef}
+          />
         </div>
         <div className="flex flex-col items-center gap-2">
           <span className="text-2xl font-semibold text-red-400">
