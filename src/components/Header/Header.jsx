@@ -3,6 +3,7 @@ import { IoIosSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const usernameSearchRef = useRef();
@@ -11,14 +12,14 @@ const Header = () => {
 
   const handleUserSearch = async (e) => {
     e.preventDefault();
+    const usernameSearch = usernameSearchRef.current.value;
     try {
-      const usernameSearch = usernameSearchRef.current.value;
       await fetchWrapper(
         `${process.env.SERVER_URL}/users/${usernameSearch}/info`,
       );
       navigate(`/user/${usernameSearch}`);
     } catch (err) {
-      console.log("NoU")
+      toast.error(`המשתמש שחיפשת אינו קיים במערכת`);
     }
 
     /* 
