@@ -15,6 +15,7 @@ import BankPage from "./pages/BankPage/BankPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -120,7 +121,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer autoClose={2000} position="bottom-left" />
+    </>
+  );
 };
 
 export default App;
