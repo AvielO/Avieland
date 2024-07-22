@@ -2,17 +2,24 @@ import { useSelector } from "react-redux";
 import { IoIosSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { fetchWrapper } from "../../utils/fetchWarpper";
 
 const Header = () => {
   const usernameSearchRef = useRef();
   const username = useSelector((state) => state.user.username);
   const navigate = useNavigate();
 
-  const handleUserSearch = (e) => {
+  const handleUserSearch = async (e) => {
     e.preventDefault();
-    const usernameSearch = usernameSearchRef.current.value;
-    //for now just navigate
-    navigate(`/user/${usernameSearch}`);
+    try {
+      const usernameSearch = usernameSearchRef.current.value;
+      await fetchWrapper(
+        `${process.env.SERVER_URL}/users/${usernameSearch}/info`,
+      );
+      navigate(`/user/${usernameSearch}`);
+    } catch (err) {
+      console.log("NoU")
+    }
 
     /* 
     1.Check if there is user with this name.
