@@ -133,7 +133,7 @@ const SignupPage = () => {
           <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
             הרשמה
           </h1>
-          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[5dvh]">
+          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[4dvh]">
             <div className="flex w-full flex-col gap-2">
               <div className="flex w-full flex-col">
                 <label className="text-2xl font-semibold text-sky-800">
@@ -168,7 +168,10 @@ const SignupPage = () => {
               </div>
             </div>
 
-            <div className="flex w-full flex-col items-center">
+            <div className="flex w-full flex-col items-center gap-2">
+              <span className="text-2xl font-semibold text-sky-800">
+                סוג שחקן
+              </span>
               <div className="flex w-full flex-row flex-wrap justify-between">
                 <div className="m-2 flex flex-col items-center gap-2">
                   <input
@@ -180,6 +183,7 @@ const SignupPage = () => {
                     }}
                   />
                   <img className="h-20 w-20" src={typeToImgPath["attacker"]} />
+                  <label className="text-sm font-semibold">התקפי</label>
                 </div>
                 <div className="m-2 flex flex-col items-center gap-2">
                   <input
@@ -191,6 +195,7 @@ const SignupPage = () => {
                     }}
                   />
                   <img className="h-20 w-20" src={typeToImgPath["attdefer"]} />
+                  <label className="text-sm font-semibold">ביניים</label>
                 </div>
                 <div className="m-2 flex flex-col items-center gap-2">
                   <input
@@ -202,6 +207,7 @@ const SignupPage = () => {
                     }}
                   />
                   <img className="h-20 w-20" src={typeToImgPath["defender"]} />
+                  <label className="text-sm font-semibold">הגנתי</label>
                 </div>
               </div>
               <div>
