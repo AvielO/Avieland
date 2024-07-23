@@ -4,6 +4,7 @@ import { updateResources } from "../../slices/resourcesSlice";
 import Timer from "../Timer/Timer";
 import io from "socket.io-client";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const socket = io(`${process.env.SERVER_URL}`);
 
@@ -23,6 +24,7 @@ const UserResources = () => {
         diamond,
       }),
     );
+    toast.info("!עדכון המשאבים בוצע בהצלחה");
   });
 
   useEffect(() => {
