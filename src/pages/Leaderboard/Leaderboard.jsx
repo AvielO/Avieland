@@ -6,6 +6,7 @@ import { fetchWrapper } from "../../utils/fetchWarpper";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import PageNavigation from "../../components/PageNavigation/PageNavigation";
 
 const Leaderboard = () => {
   const [page, setPage] = useState(1);
@@ -136,21 +137,11 @@ const Leaderboard = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex w-full items-center justify-center text-3xl">
-            <div className="flex w-fit items-center gap-4 rounded-full bg-sky-50">
-              <IoIosArrowForward
-                value="forward"
-                className="cursor-pointer"
-                onClick={() => handlePagination("forward")}
-              />
-              <span className="text-3xl">{page}</span>
-              <IoIosArrowBack
-                value="back"
-                className="cursor-pointer"
-                onClick={() => handlePagination("back")}
-              />
-            </div>
-          </div>
+          <PageNavigation
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}
+          />
         </div>
       )}
     </>
