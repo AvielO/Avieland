@@ -54,6 +54,7 @@ const BankPage = () => {
       );
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
+      toast.success("!הפקדת המשאבים הסתיימה בהצלחה");
     } catch (err) {
       toast.error(err.message);
     }
@@ -80,6 +81,7 @@ const BankPage = () => {
       );
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
+      toast.success("!משיכת המשאבים הסתיימה בהצלחה");
     } catch (err) {
       toast.error(err.message);
     }
