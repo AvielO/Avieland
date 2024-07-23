@@ -46,6 +46,7 @@ const HirePage = () => {
       copperWorkerQuantityRef.current.value = "";
       silverWorkerQuantityRef.current.value = "";
       goldWorkerQuantityRef.current.value = "";
+      toast.success("!העובדים הועסקו בהצלחה");
     } catch (err) {
       toast.error(err.message);
     }
@@ -75,6 +76,7 @@ const HirePage = () => {
       dispatch(updateResources(updatedResources));
 
       solidersQuantityRef.current.value = "";
+      toast.success("!החיילים הועסקו בהצלחה");
     } catch (err) {
       toast.error(err.message);
     }
