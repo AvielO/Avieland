@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { userLogout } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 import NavItem from "../../components/NavItem/NavItem";
+import { toast } from "react-toastify";
 
 const routeToTitleMap = {
   home: "בית",
@@ -41,6 +42,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     await fetchWrapper(`${process.env.SERVER_URL}/auth/logout`);
     dispatch(userLogout());
+    toast.success("!ההתנתקות התבצעה בהצלחה");
   };
 
   return (

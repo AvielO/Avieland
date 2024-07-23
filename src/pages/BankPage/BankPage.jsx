@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const BankPage = () => {
   const username = useSelector((state) => state.user.username);
@@ -11,8 +12,6 @@ const BankPage = () => {
     silver: 0,
     gold: 0,
   });
-  const [errors, setErrors] = useState({});
-
   const dispatch = useDispatch();
 
   const copperDepRef = useRef();
@@ -38,7 +37,6 @@ const BankPage = () => {
   const handleDeposit = async (e, resourceName) => {
     e.preventDefault();
     try {
-      setErrors({});
       const { updatedResources, updatedBankResources } = await fetchWrapper(
         `${process.env.SERVER_URL}/bank/${username}/deposit`,
         {
@@ -56,8 +54,9 @@ const BankPage = () => {
       );
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
+      toast.success("!הפקדת המשאבים הסתיימה בהצלחה");
     } catch (err) {
-      setErrors({ deposit: err.message });
+      toast.error(err.message);
     }
   };
 
@@ -82,8 +81,9 @@ const BankPage = () => {
       );
       dispatch(updateResources(updatedResources));
       setBankResources(updatedBankResources);
+      toast.success("!משיכת המשאבים הסתיימה בהצלחה");
     } catch (err) {
-      setErrors({ withdraw: err.message });
+      toast.error(err.message);
     }
   };
 

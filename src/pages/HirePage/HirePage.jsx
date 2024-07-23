@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 import HireCard from "../../components/HireCard/HireCard";
+import { toast } from "react-toastify";
 
 const HirePage = () => {
   const solidersQuantityRef = useRef();
@@ -13,21 +14,15 @@ const HirePage = () => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.username);
 
-  const [errors, setErrors] = useState({});
-
   const hireWorkers = async (e) => {
     e.preventDefault();
-
-    const newErrors = {};
-    setErrors(newErrors);
 
     if (
       isNaN(copperWorkerQuantityRef.current.value) ||
       isNaN(silverWorkerQuantityRef.current.value) ||
       isNaN(goldWorkerQuantityRef.current.value)
     ) {
-      newErrors.workers = "כמות עובדים חייבת להכיל מספר שלם";
-      setErrors(newErrors);
+      toast.error("כמות העובדים חייבת להכיל מספר שלם");
       return;
     }
     try {
@@ -51,20 +46,17 @@ const HirePage = () => {
       copperWorkerQuantityRef.current.value = "";
       silverWorkerQuantityRef.current.value = "";
       goldWorkerQuantityRef.current.value = "";
+      toast.success("!העובדים הועסקו בהצלחה");
     } catch (err) {
-      setErrors({ workers: err.message });
+      toast.error(err.message);
     }
   };
 
   const hireSoliders = async (e) => {
     e.preventDefault();
 
-    const newErrors = {};
-    setErrors(newErrors);
-
     if (isNaN(solidersQuantityRef.current.value)) {
-      newErrors.soliders = "כמות החיילים חייבת להכיל מספר שלם";
-      setErrors(newErrors);
+      toast.error("כמות החיילים חייבת להכיל מספר שלם");
       return;
     }
     try {
@@ -84,8 +76,9 @@ const HirePage = () => {
       dispatch(updateResources(updatedResources));
 
       solidersQuantityRef.current.value = "";
+      toast.success("!החיילים הועסקו בהצלחה");
     } catch (err) {
-      setErrors({ soliders: err.message });
+      toast.error(err.message);
     }
   };
 
@@ -102,9 +95,6 @@ const HirePage = () => {
         />
 
         <div className="flex flex-col items-center gap-2">
-          <span className="text-2xl font-semibold text-red-400">
-            {errors.soliders && errors.soliders}
-          </span>
           <button
             onClick={(e) => hireSoliders(e)}
             className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"
@@ -142,9 +132,6 @@ const HirePage = () => {
           />
         </div>
         <div className="flex flex-col items-center gap-2">
-          <span className="text-2xl font-semibold text-red-400">
-            {errors.workers && errors.workers}
-          </span>
           <button
             onClick={(e) => hireWorkers(e)}
             className="rounded-2xl bg-sky-300 px-4 py-2 text-2xl"

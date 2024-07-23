@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const SigninPage = () => {
   const [username, setUsername] = useState("");
@@ -43,6 +44,7 @@ const SigninPage = () => {
         `${process.env.SERVER_URL}/auth?username=${username}&password=${password}`,
       );
       dispatch(userLogin(username));
+      toast.success("!ההתחברות התבצעה בהצלחה");
       navigate("/home");
     } catch (err) {
       setErrors({ general: err.message });
