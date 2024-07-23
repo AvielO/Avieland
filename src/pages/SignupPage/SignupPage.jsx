@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 import { toast } from "react-toastify";
+import Tooltip from "../../components/Tooltip/Tooltip";
 
 const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -173,42 +174,57 @@ const SignupPage = () => {
                 סוג שחקן
               </span>
               <div className="flex w-full flex-row flex-wrap justify-between">
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "attacker"}
-                    onChange={() => {
-                      handleCheckboxChange("attacker");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["attacker"]} />
-                  <label className="text-sm font-semibold">התקפי</label>
-                </div>
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "attdefer"}
-                    onChange={() => {
-                      handleCheckboxChange("attdefer");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["attdefer"]} />
-                  <label className="text-sm font-semibold">ביניים</label>
-                </div>
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "defender"}
-                    onChange={() => {
-                      handleCheckboxChange("defender");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["defender"]} />
-                  <label className="text-sm font-semibold">הגנתי</label>
-                </div>
+                <Tooltip text="מעניק עוד 15% התקפה כאשר אתה התוקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "attacker"}
+                      onChange={() => {
+                        handleCheckboxChange("attacker");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["attacker"]}
+                    />
+                    <label className="text-sm font-semibold">התקפי</label>
+                  </div>
+                </Tooltip>
+                <Tooltip text="מעניק עוד 10% התקפה כאשר אתה התוקף ועוד 10% הגנה כאשר אתה המותקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "attdefer"}
+                      onChange={() => {
+                        handleCheckboxChange("attdefer");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["attdefer"]}
+                    />
+                    <label className="text-sm font-semibold">ביניים</label>
+                  </div>
+                </Tooltip>
+                <Tooltip text="מעניק עוד 15% הגנה כאשר אתה מותקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "defender"}
+                      onChange={() => {
+                        handleCheckboxChange("defender");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["defender"]}
+                    />
+                    <label className="text-sm font-semibold">הגנתי</label>
+                  </div>
+                </Tooltip>
               </div>
               <div>
                 {errors.type && (
