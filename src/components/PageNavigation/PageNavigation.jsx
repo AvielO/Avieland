@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-const PageNavigation = () => {
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
+const PageNavigation = ({ page, setPage, totalPages }) => {
   const handlePagination = (direction) => {
     const nextPage = direction === "forward" ? page + 1 : page - 1;
     if (nextPage < 1) return;
