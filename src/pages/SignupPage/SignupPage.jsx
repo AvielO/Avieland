@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
 import { toast } from "react-toastify";
+import Tooltip from "../../components/Tooltip/Tooltip";
 
 const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -133,7 +134,7 @@ const SignupPage = () => {
           <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
             הרשמה
           </h1>
-          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[5dvh]">
+          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[4dvh]">
             <div className="flex w-full flex-col gap-2">
               <div className="flex w-full flex-col">
                 <label className="text-2xl font-semibold text-sky-800">
@@ -168,41 +169,62 @@ const SignupPage = () => {
               </div>
             </div>
 
-            <div className="flex w-full flex-col items-center">
+            <div className="flex w-full flex-col items-center gap-2">
+              <span className="text-2xl font-semibold text-sky-800">
+                סוג שחקן
+              </span>
               <div className="flex w-full flex-row flex-wrap justify-between">
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "attacker"}
-                    onChange={() => {
-                      handleCheckboxChange("attacker");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["attacker"]} />
-                </div>
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "attdefer"}
-                    onChange={() => {
-                      handleCheckboxChange("attdefer");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["attdefer"]} />
-                </div>
-                <div className="m-2 flex flex-col items-center gap-2">
-                  <input
-                    className="h-6 w-6"
-                    type="checkbox"
-                    checked={typeSelected === "defender"}
-                    onChange={() => {
-                      handleCheckboxChange("defender");
-                    }}
-                  />
-                  <img className="h-20 w-20" src={typeToImgPath["defender"]} />
-                </div>
+                <Tooltip text="מעניק עוד 15% התקפה כאשר אתה התוקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "attacker"}
+                      onChange={() => {
+                        handleCheckboxChange("attacker");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["attacker"]}
+                    />
+                    <label className="text-sm font-semibold">התקפי</label>
+                  </div>
+                </Tooltip>
+                <Tooltip text="מעניק עוד 10% התקפה כאשר אתה התוקף ועוד 10% הגנה כאשר אתה המותקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "attdefer"}
+                      onChange={() => {
+                        handleCheckboxChange("attdefer");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["attdefer"]}
+                    />
+                    <label className="text-sm font-semibold">ביניים</label>
+                  </div>
+                </Tooltip>
+                <Tooltip text="מעניק עוד 15% הגנה כאשר אתה מותקף">
+                  <div className="m-2 flex flex-col items-center gap-2">
+                    <input
+                      className="h-6 w-6 cursor-pointer"
+                      type="checkbox"
+                      checked={typeSelected === "defender"}
+                      onChange={() => {
+                        handleCheckboxChange("defender");
+                      }}
+                    />
+                    <img
+                      className="h-20 w-20"
+                      src={typeToImgPath["defender"]}
+                    />
+                    <label className="text-sm font-semibold">הגנתי</label>
+                  </div>
+                </Tooltip>
               </div>
               <div>
                 {errors.type && (
