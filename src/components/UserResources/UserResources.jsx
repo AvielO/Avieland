@@ -33,6 +33,7 @@ const UserResources = () => {
     }
     return () => {
       socket.off("listen myself");
+      socket.off("update resources");
     };
   }, [username]);
 
