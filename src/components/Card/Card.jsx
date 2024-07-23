@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResources } from "../../slices/resourcesSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const Card = ({
   weaponID,
@@ -15,16 +16,13 @@ const Card = ({
 }) => {
   const quantityRef = useRef();
   const username = useSelector((state) => state.user.username);
-
   const dispatch = useDispatch();
-  const [error, setError] = useState();
 
   const handleBuyWeapon = async (weaponID) => {
     try {
-      setError();
-
       if (quantityRef.current.value <= 0) {
-        throw new Error("אנא קנה מספר נשקים גדול מ0");
+        toast.error("אנא קנה מספר נשקים הגדול מ0");
+        return;
       }
 
       const resourcesState = await fetchWrapper(
@@ -42,8 +40,9 @@ const Card = ({
       );
       dispatch(updateResources(resourcesState));
       quantityRef.current.value = "";
+      toast.success("!הנשקים נקנו בהצלחה");
     } catch (err) {
-      setError(err.message);
+      toast.error(err.message);
     }
   };
 
@@ -95,11 +94,6 @@ const Card = ({
             ref={quantityRef}
           />
         </div>
-
-        {error && (
-          <span className="text-md font-semibold text-red-500">{error}</span>
-        )}
-
         <button
           onClick={() => handleBuyWeapon(weaponID)}
           className="w-24 rounded-lg bg-sky-100 p-2"
