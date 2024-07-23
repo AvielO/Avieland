@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ReportItem from "../../components/ReportItem/ReportItem";
 import { CircularProgress } from "@mui/joy";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import PageNavigation from "../../components/PageNavigation/PageNavigation";
 
 const ReportsPage = () => {
   const [reports, setReports] = useState([]);
@@ -55,6 +56,7 @@ const ReportsPage = () => {
           </tbody>
         </table>
       )}
+      <PageNavigation />
     </>
   );
 };
