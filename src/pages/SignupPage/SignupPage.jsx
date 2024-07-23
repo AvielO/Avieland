@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { userLogin } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
+import { toast } from "react-toastify";
 
 const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -78,6 +79,7 @@ const SignupPage = () => {
           }),
         });
         dispatch(userLogin(usernameRef.current.value));
+        toast.success("!ההרשמה התבצעה בהצלחה");
         navigate("/home");
       } catch (err) {
         setErrors({ general: err.message });
@@ -127,7 +129,7 @@ const SignupPage = () => {
           />
         </div>
 
-        <div className="flex min-h-screen md:w-1/2 flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] lg:gap-[6dvh]">
+        <div className="flex min-h-screen flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] md:w-1/2 lg:gap-[6dvh]">
           <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
             הרשמה
           </h1>
