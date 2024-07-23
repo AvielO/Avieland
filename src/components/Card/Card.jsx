@@ -40,6 +40,7 @@ const Card = ({
       );
       dispatch(updateResources(resourcesState));
       quantityRef.current.value = "";
+      toast.success("!הנשקים נקנו בהצלחה");
     } catch (err) {
       toast.error(err.message);
     }
