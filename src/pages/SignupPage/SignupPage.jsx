@@ -136,7 +136,7 @@ const SignupPage = () => {
           </h1>
           <form className="flex flex-col items-center gap-10 transition-all lg:gap-[4dvh]">
             <div className="flex w-full flex-col gap-6">
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-col gap-2">
                 <label className="text-xl font-semibold">שם משתמש</label>
                 <input
                   className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
@@ -153,7 +153,7 @@ const SignupPage = () => {
                   </span>
                 )}
               </div>
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-col gap-2">
                 <label className="text-xl font-semibold">אימייל</label>
                 <input
                   className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
@@ -230,7 +230,7 @@ const SignupPage = () => {
             </div>
 
             <div className="flex w-full flex-col items-center gap-6">
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-col gap-2">
                 <label className="text-xl font-semibold">סיסמה</label>
                 <input
                   className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
@@ -242,7 +242,7 @@ const SignupPage = () => {
                   required
                 />
               </div>
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-col gap-2">
                 <label className="text-xl font-semibold">
                   חזרו שוב על הסיסמה
                 </label>
