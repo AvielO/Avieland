@@ -113,7 +113,7 @@ const SigninPage = () => {
 
           <button
             onClick={(e) => handleSigninClick(e)}
-            className="bg-blueBackground rounded-2xl px-6 py-4 font-semibold text-white"
+            className="bg-blueBackground rounded px-6 py-4 font-semibold text-white"
           >
             התחברות
           </button>
@@ -133,7 +133,7 @@ const SigninPage = () => {
         </p>
         <button
           onClick={(e) => handleSignupClick(e)}
-          className="text-blueBackground mx-4 mt-6 h-10 w-32 rounded bg-white font-semibold lg:mx-8 lg:h-12 lg:w-40"
+          className="text-blueBackground mx-4 mt-6 rounded bg-white px-10 py-3 font-semibold"
         >
           הרשמה
         </button>

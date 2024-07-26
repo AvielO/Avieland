@@ -106,20 +106,20 @@ const SignupPage = () => {
   return (
     <>
       <div className="flex w-full flex-col md:flex-row">
-        <div className="flex flex-col items-center justify-center bg-sky-50 md:w-1/2">
-          <h1 className="mx-4 mt-12 text-5xl text-sky-600 transition-all lg:mx-8 lg:text-6xl xl:text-7xl">
+        <div className="bg-blueBackground flex flex-col items-center justify-center p-8 md:w-1/2">
+          <h1 className="mb-4 text-center text-5xl text-white transition-all lg:text-6xl xl:mb-6 xl:text-7xl 2xl:mb-8 2xl:text-8xl">
             ברוכים הבאים לאביאלנד
           </h1>
-          <p className="text-md mx-4 mt-8 transition-all lg:mx-8 lg:text-2xl xl:text-3xl">
-            משחק דפדפן בו תוכלו ליצור את הצבא שלכם.
+          <p className="text-md text-center text-gray-200 transition-all lg:mb-2 lg:text-xl xl:text-2xl 2xl:text-3xl">
+            משחק דפדפן בו תוכלו ליצור את הצבא שלכם
             <br />
-            ולהתחרות בחבריכם בטקטיקת המשחק היחודית שלכם
+            ולהתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
             <br />
-            יש לך כבר שחקן? כנס עכשיו!
+            הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק ביותר!
           </p>
           <button
             onClick={(e) => handleSigninClick(e)}
-            className="mx-4 mt-6 h-10 w-32 rounded bg-sky-600 font-semibold text-sky-50 lg:mx-8 lg:h-12 lg:w-40"
+            className="text-blueBackground mx-4 mt-6 rounded bg-white px-10 py-3 font-semibold"
           >
             התחברות
           </button>
@@ -130,18 +130,16 @@ const SignupPage = () => {
           />
         </div>
 
-        <div className="flex min-h-screen flex-col items-center justify-center gap-[4dvh] bg-sky-200 transition-all sm:gap-[6dvh] md:w-1/2 lg:gap-[6dvh]">
-          <h1 className="text-7xl font-semibold text-sky-600 underline transition-all md:text-8xl lg:text-[120px] xl:text-[130px]">
+        <div className="bg-grayBackground flex min-h-screen flex-col items-center justify-center gap-[4dvh] transition-all md:w-1/2">
+          <h1 className="text-7xl font-semibold text-black transition-all lg:text-[6rem] xl:text-[7rem] 2xl:text-[8rem]">
             הרשמה
           </h1>
-          <form className="flex w-4/5 max-w-md flex-col items-center gap-[4dvh] transition-all sm:gap-[5dvh] lg:gap-[4dvh]">
-            <div className="flex w-full flex-col gap-2">
+          <form className="flex flex-col items-center gap-10 transition-all lg:gap-[4dvh]">
+            <div className="flex w-full flex-col gap-6">
               <div className="flex w-full flex-col">
-                <label className="text-2xl font-semibold text-sky-800">
-                  שם משתמש
-                </label>
+                <label className="text-xl font-semibold">שם משתמש</label>
                 <input
-                  className="h-7 w-full lg:h-9"
+                  className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
                   type="text"
                   name="text"
                   minLength={3}
@@ -156,11 +154,9 @@ const SignupPage = () => {
                 )}
               </div>
               <div className="flex w-full flex-col">
-                <label className="text-2xl font-semibold text-sky-800">
-                  אימייל
-                </label>
+                <label className="text-xl font-semibold">אימייל</label>
                 <input
-                  className="h-7 w-full lg:h-9"
+                  className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
                   type="email"
                   name="email"
                   ref={emailRef}
@@ -170,10 +166,8 @@ const SignupPage = () => {
             </div>
 
             <div className="flex w-full flex-col items-center gap-2">
-              <span className="text-2xl font-semibold text-sky-800">
-                סוג שחקן
-              </span>
-              <div className="flex w-full flex-row flex-wrap justify-between">
+              <span className="text-xl font-semibold">סוג שחקן</span>
+              <div className="flex w-full flex-row flex-wrap justify-evenly">
                 <Tooltip text="מעניק עוד 15% התקפה כאשר אתה התוקף">
                   <div className="m-2 flex flex-col items-center gap-2">
                     <input
@@ -235,13 +229,11 @@ const SignupPage = () => {
               </div>
             </div>
 
-            <div className="flex w-full flex-col items-center gap-2">
+            <div className="flex w-full flex-col items-center gap-6">
               <div className="flex w-full flex-col">
-                <label className="text-2xl font-semibold text-sky-800">
-                  סיסמה
-                </label>
+                <label className="text-xl font-semibold">סיסמה</label>
                 <input
-                  className="h-7 w-full lg:h-9"
+                  className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
                   type="password"
                   name="password"
                   minLength={6}
@@ -251,11 +243,11 @@ const SignupPage = () => {
                 />
               </div>
               <div className="flex w-full flex-col">
-                <label className="text-2xl font-semibold text-sky-800">
+                <label className="text-xl font-semibold">
                   חזרו שוב על הסיסמה
                 </label>
                 <input
-                  className="h-7 w-full lg:h-9"
+                  className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
                   type="password"
                   name="password"
                   minLength={6}
@@ -276,7 +268,7 @@ const SignupPage = () => {
               )}
               <button
                 onClick={(e) => handleSignup(e)}
-                className="mx-2 mt-7 h-10 w-28 rounded bg-sky-600 font-semibold text-sky-50 transition-all lg:mx-8 lg:h-12 lg:w-32"
+                className="bg-blueBackground mx-4 mt-6 rounded px-10 py-3 font-semibold text-white"
               >
                 הירשם
               </button>
