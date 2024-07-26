@@ -120,20 +120,20 @@ const SigninPage = () => {
         </form>
       </div>
 
-      <div className="bg-blueBackground flex flex-col items-center justify-center md:w-1/2">
-        <h1 className="mx-4 mt-12 text-5xl text-white lg:mx-8 lg:text-8xl">
+      <div className="bg-blueBackground flex flex-col items-center justify-center p-8 md:w-1/2">
+        <h1 className="mb-4 text-center text-5xl text-white transition-all lg:text-6xl xl:mb-6 xl:text-7xl 2xl:mb-8 2xl:text-8xl">
           ברוכים הבאים לאביאלנד
         </h1>
-        <p className="text-md mx-4 mt-8 lg:mx-8 lg:text-3xl">
-          משחק דפדפן בו תוכלו ליצור את הצבא שלכם.
+        <p className="text-md text-center text-gray-200 transition-all lg:mb-2 lg:text-xl xl:text-2xl 2xl:text-3xl">
+          משחק דפדפן בו תוכלו ליצור את הצבא שלכם
           <br />
-          משחק שבו תוכלו להתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
+          להתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
           <br />
-          הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק במשחק!
+          הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק ביותר!
         </p>
         <button
           onClick={(e) => handleSignupClick(e)}
-          className="mx-4 mt-6 h-10 w-32 rounded bg-sky-600 font-semibold text-sky-50 lg:mx-8 lg:h-12 lg:w-40"
+          className="text-blueBackground mx-4 mt-6 h-10 w-32 rounded bg-white font-semibold lg:mx-8 lg:h-12 lg:w-40"
         >
           הרשמה
         </button>
