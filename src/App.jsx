@@ -16,6 +16,7 @@ import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { ToastContainer } from "react-toastify";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignupPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage />,
   },
   {
     element: <AppLayout />,
