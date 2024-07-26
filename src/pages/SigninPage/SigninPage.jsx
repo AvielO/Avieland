@@ -61,8 +61,8 @@ const SigninPage = () => {
     //items-center - Horizontally - אופקי
 
     <div className="flex h-screen w-full flex-col md:flex-row">
-      <div className="bg-grayBackground flex flex-col items-center justify-center gap-6 bg-cover bg-center md:w-1/2">
-        <p className="text-7xl font-semibold text-black md:text-8xl lg:mb-10 lg:text-[168px]">
+      <div className="bg-grayBackground flex flex-col items-center justify-center gap-6 bg-cover bg-center py-4 md:w-1/2">
+        <p className="text-7xl font-semibold text-black transition-all lg:mb-10 lg:text-[6rem] xl:text-[7rem] 2xl:text-[8rem]">
           כניסה
         </p>
 
@@ -73,7 +73,7 @@ const SigninPage = () => {
               type="text"
               name="name"
               value={username}
-              className="rounded-md border border-black px-2 text-xl md:w-[18rem] lg:h-12 lg:w-[42rem]"
+              className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
               onChange={(e) => setUsername(e.target.value)}
               minLength={3}
               maxLength={12}
@@ -92,7 +92,7 @@ const SigninPage = () => {
               value={password}
               minLength={6}
               maxLength={24}
-              className="rounded-md border border-black px-2 text-xl md:w-[18rem] lg:h-12 lg:w-[42rem]"
+              className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
