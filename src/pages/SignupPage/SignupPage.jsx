@@ -130,7 +130,7 @@ const SignupPage = () => {
           />
         </div>
 
-        <div className="bg-grayBackground flex min-h-screen flex-col items-center justify-center gap-[4dvh] transition-all md:w-1/2">
+        <div className="bg-grayBackground flex min-h-screen flex-col items-center justify-center gap-[4dvh] transition-all md:w-1/2 p-6">
           <h1 className="text-7xl font-semibold text-black transition-all lg:text-[6rem] xl:text-[7rem] 2xl:text-[8rem]">
             הרשמה
           </h1>
