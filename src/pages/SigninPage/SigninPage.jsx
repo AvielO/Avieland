@@ -127,7 +127,7 @@ const SigninPage = () => {
         <p className="text-md text-center text-gray-200 transition-all lg:mb-2 lg:text-xl xl:text-2xl 2xl:text-3xl">
           משחק דפדפן בו תוכלו ליצור את הצבא שלכם
           <br />
-          להתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
+          ולהתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
           <br />
           הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק ביותר!
         </p>
