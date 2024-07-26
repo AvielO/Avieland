@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../slices/userSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper";
@@ -61,25 +61,19 @@ const SigninPage = () => {
     //items-center - Horizontally - אופקי
 
     <div className="flex h-screen w-full flex-col md:flex-row">
-      <div className="flex flex-col items-center justify-center gap-6 bg-sky-200 bg-cover bg-center md:w-1/2">
-        <p className="mb-4 text-7xl font-semibold text-sky-600 underline md:text-8xl lg:mb-10 lg:text-[168px]">
+      <div className="bg-grayBackground flex flex-col items-center justify-center gap-6 bg-cover bg-center py-4 md:w-1/2">
+        <p className="text-7xl font-semibold text-black transition-all lg:mb-10 lg:text-[6rem] xl:text-[7rem] 2xl:text-[8rem]">
           כניסה
         </p>
 
-        <img
-          src="/user-icon.png"
-          alt="User Image"
-          className="h-20 w-20 md:h-24 md:w-24 lg:h-64 lg:w-64"
-        />
-
-        <form className="flex flex-col items-center gap-4">
-          <div className="m-2 flex flex-col gap-1">
-            <label className="font-semibold">שם משתמש</label>
+        <form className="flex flex-col items-center gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-xl font-semibold">שם משתמש</label>
             <input
               type="text"
               name="name"
               value={username}
-              className="rounded border p-2 md:w-[18rem] lg:h-12 lg:w-[42rem]"
+              className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
               onChange={(e) => setUsername(e.target.value)}
               minLength={3}
               maxLength={12}
@@ -90,50 +84,56 @@ const SigninPage = () => {
             </span>
           </div>
 
-          <div className="m-2 flex flex-col gap-1">
-            <label className="font-semibold">סיסמה</label>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl font-semibold">סיסמה</label>
             <input
               type="password"
               name="password"
               value={password}
               minLength={6}
               maxLength={24}
-              className="rounded border p-2 md:w-[18rem] lg:h-12 lg:w-[42rem]"
+              className="h-9 w-64 rounded-md border border-black px-2 text-xl transition-all md:h-9 md:w-72 lg:h-12 lg:w-96 xl:w-[32rem] 2xl:w-[42rem]"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <Link to="/forgot-password">
+              <span className="text-md cursor-pointer font-semibold text-blue-600">
+                שכחתי סיסמה
+              </span>
+            </Link>
+
             <span className="text-md font-semibold text-red-400">
               {errors.password && errors.password}
             </span>
           </div>
+
           <span className="text-2xl font-semibold text-red-500">
             {errors.general ? errors.general : ""}
           </span>
-          <div>
-            <button
-              onClick={(e) => handleSigninClick(e)}
-              className="mb-4 rounded-full bg-sky-600 px-6 py-4 font-semibold text-sky-50"
-            >
-              התחברות
-            </button>
-          </div>
+
+          <button
+            onClick={(e) => handleSigninClick(e)}
+            className="bg-blueBackground rounded-2xl px-6 py-4 font-semibold text-white"
+          >
+            התחברות
+          </button>
         </form>
       </div>
 
-      <div className="flex flex-col items-center justify-center bg-sky-50 md:w-1/2">
-        <h1 className="mx-4 mt-12 text-5xl text-sky-600 lg:mx-8 lg:text-8xl">
+      <div className="bg-blueBackground flex flex-col items-center justify-center p-8 md:w-1/2">
+        <h1 className="mb-4 text-center text-5xl text-white transition-all lg:text-6xl xl:mb-6 xl:text-7xl 2xl:mb-8 2xl:text-8xl">
           ברוכים הבאים לאביאלנד
         </h1>
-        <p className="text-md mx-4 mt-8 lg:mx-8 lg:text-3xl">
-          משחק דפדפן בו תוכלו ליצור את הצבא שלכם.
+        <p className="text-md text-center text-gray-200 transition-all lg:mb-2 lg:text-xl xl:text-2xl 2xl:text-3xl">
+          משחק דפדפן בו תוכלו ליצור את הצבא שלכם
           <br />
-          משחק שבו תוכלו להתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
+          ולהתחרות בחבריכם בטקטיקת המשחק היחודית שלכם.
           <br />
-          הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק במשחק!
+          הירשמו עכשיו ונסו להיות האדם בעל הצבא החזק ביותר!
         </p>
         <button
           onClick={(e) => handleSignupClick(e)}
-          className="mx-4 mt-6 h-10 w-32 rounded bg-sky-600 font-semibold text-sky-50 lg:mx-8 lg:h-12 lg:w-40"
+          className="text-blueBackground mx-4 mt-6 h-10 w-32 rounded bg-white font-semibold lg:mx-8 lg:h-12 lg:w-40"
         >
           הרשמה
         </button>
