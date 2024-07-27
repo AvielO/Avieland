@@ -4,6 +4,7 @@ export async function fetchWrapper(url, options = {}) {
     credentials: "include",
   });
 
+  console.log(res);
   if (!res.ok) {
     const { message } = await res.json();
     throw new Error(message);
