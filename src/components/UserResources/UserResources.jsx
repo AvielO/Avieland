@@ -9,23 +9,27 @@ import { toast } from "react-toastify";
 const socket = io(`${process.env.SERVER_URL}`);
 
 const UserResources = () => {
-  const { copper, silver, gold, diamond } = useSelector(
+  const { copper, silver, gold, diamond, turns } = useSelector(
     (state) => state.resources,
   );
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.username);
 
-  socket.once("update resources", ({ copper, silver, gold, diamond }) => {
-    dispatch(
-      updateResources({
-        copper,
-        silver,
-        gold,
-        diamond,
-      }),
-    );
-    toast.info("!עדכון המשאבים בוצע בהצלחה");
-  });
+  socket.once(
+    "update resources",
+    ({ copper, silver, gold, diamond, turns }) => {
+      dispatch(
+        updateResources({
+          copper,
+          silver,
+          gold,
+          diamond,
+          turns,
+        }),
+      );
+      toast.info("!עדכון המשאבים בוצע בהצלחה");
+    },
+  );
 
   useEffect(() => {
     if (username) {
@@ -40,15 +44,17 @@ const UserResources = () => {
   useEffect(() => {
     const fetchResources = async () => {
       if (username) {
-        const userResources = await fetchWrapper(
+        const { resources, turns } = await fetchWrapper(
           `${process.env.SERVER_URL}/users/${username}/resources`,
         );
+
         dispatch(
           updateResources({
-            copper: userResources.resources.copper,
-            silver: userResources.resources.silver,
-            gold: userResources.resources.gold,
-            diamond: userResources.resources.diamond,
+            copper: resources.copper,
+            silver: resources.silver,
+            gold: resources.gold,
+            diamond: resources.diamond,
+            turns,
           }),
         );
       }
@@ -92,8 +98,16 @@ const UserResources = () => {
           />
           <span className="text-2xl">{diamond}</span>
         </div>
+        <div className="flex items-center gap-2">
+          <img
+            className="h-12 w-12"
+            src="/resources-icons/turns-icon.png"
+            alt="diamond-resource-icon"
+          />
+          <span className="text-2xl">{turns}</span>
+        </div>
       </div>
-      <div>
+      <div className="flex items-center gap-4">
         <Timer />
       </div>
     </div>

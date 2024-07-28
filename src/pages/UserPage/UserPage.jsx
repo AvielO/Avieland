@@ -9,6 +9,7 @@ import { VscTypeHierarchy } from "react-icons/vsc";
 
 import { updateResources } from "../../slices/resourcesSlice";
 import { fetchWrapper } from "../../utils/fetchWarpper.js";
+import { toast } from "react-toastify";
 
 export const typeToImgPath = {
   attacker: "/player-type-icons/attacker-icon.png",
@@ -23,9 +24,13 @@ const UserPage = () => {
 
   const userDetails = useLoaderData();
   const username = useSelector((state) => state.user.username);
+  const turns = useSelector((state) => state.resources.turns);
 
   const handleAttack = async () => {
-    //fetch post/patch of attack - username, destUsername
+    if (turns <= 0) {
+      toast.error("אין לך מספיק תורות כדי לתקוף");
+      return;
+    }
     const { reportID, updatedResources } = await fetchWrapper(
       `${process.env.SERVER_URL}/users/${username}/attack/${userDetails.username}`,
       {
